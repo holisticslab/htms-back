@@ -1,60 +1,47 @@
-<x-guest-layout>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-            <x-jet-authentication-card-logo />
-        </x-slot>
+@extends('layouts.app-master')
 
-        <x-jet-validation-errors class="mb-4" />
+@section('content')
+    <form method="post" action="{{ route('register.perform') }}">
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        <img class="mb-4" src="{!! url('images/bootstrap-logo.svg') !!}" alt="" width="72" height="57">
+        
+        <h1 class="h3 mb-3 fw-normal">Register</h1>
 
-            <div>
-                <x-jet-label for="name" value="{{ __('Name') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="email" value="{{ __('Email') }}" />
-                <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
-                <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="password_confirmation" value="{{ __('Confirm Password') }}" />
-                <x-jet-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required autocomplete="new-password" />
-            </div>
-
-            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                <div class="mt-4">
-                    <x-jet-label for="terms">
-                        <div class="flex items-center">
-                            <x-jet-checkbox name="terms" id="terms"/>
-
-                            <div class="ml-2">
-                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',
-                                ]) !!}
-                            </div>
-                        </div>
-                    </x-jet-label>
-                </div>
+        <div class="form-group form-floating mb-3">
+            <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required="required" autofocus>
+            <label for="floatingEmail">Email address</label>
+            @if ($errors->has('email'))
+                <span class="text-danger text-left">{{ $errors->first('email') }}</span>
             @endif
+        </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+        <div class="form-group form-floating mb-3">
+            <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required="required" autofocus>
+            <label for="floatingName">Username</label>
+            @if ($errors->has('username'))
+                <span class="text-danger text-left">{{ $errors->first('username') }}</span>
+            @endif
+        </div>
+        
+        <div class="form-group form-floating mb-3">
+            <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required="required">
+            <label for="floatingPassword">Password</label>
+            @if ($errors->has('password'))
+                <span class="text-danger text-left">{{ $errors->first('password') }}</span>
+            @endif
+        </div>
 
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
-            </div>
-        </form>
-    </x-jet-authentication-card>
-</x-guest-layout>
+        <div class="form-group form-floating mb-3">
+            <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password" required="required">
+            <label for="floatingConfirmPassword">Confirm Password</label>
+            @if ($errors->has('password_confirmation'))
+                <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
+            @endif
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
+        
+        @include('auth.partials.copy')
+    </form>
+@endsection
