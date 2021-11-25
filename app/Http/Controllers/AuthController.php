@@ -24,41 +24,30 @@ class AuthController extends Controller {
                 'email' => 'required|string|email|max:255|unique:users',
                 'ic' => 'required|string|max:12|unique:users',
                 'password' => 'required|string|min:8',
-                'confirm_password' => 'required|string|min:8',
                 'phone_no' => 'required|string|min:8',
                 'company_name' => 'required|string',
-                'company_address' => 'required|string',
-                'position' => 'required|string',
-                'allergies' => 'string',
-                'referrel_code' => 'string',
-                'promo_code' => 'string',
-                'hrdf_claim' => 'boolean',
+                'company_address' => 'required|string'
             ]);
 
-            if ($request['password']!=$request['confirm_password']) {
-                return back()->withErrors([
-                    'message' => ['The passwords does not match.']
-                ]);
-            } else {
-                User::create([
-                    'fullname' => $validatedData['fullname'],
-                    'email' => $validatedData['email'],
-                    'ic' => $validatedData['ic'],
-                    'password' => Hash::make($validatedData['password']),
-                    'phone_no' => $validatedData['phone_no'],
-                    'company_name' => $validatedData['company_name'],
-                    'company_address' => $validatedData['company_address'],
-                    'position' => $validatedData['position'],
-                    'allergies' => $validatedData['allergies'],
-                    'referrel_code' => $validatedData['referrel_code'],
-                    'promo_code' => $validatedData['promo_code'],
-                    'hrdf_claim' => $validatedData['hrdf_claim']
-                ]);
-        
-                return response()->json([
-                    "message" => "Successfully register"
-                ]);
-            }
+
+        User::create([
+            'fullname' => $validatedData['fullname'],
+            'email' => $validatedData['email'],
+            'ic' => $validatedData['ic'],
+            'password' => Hash::make($validatedData['password']),
+            'phone_no' => $validatedData['phone_no'],
+            'company_name' => $validatedData['company_name'],
+            'company_address' => $validatedData['company_address'],
+            'allergies' => $request['allergies'],
+            'referrel_code' => $request['referrel_code'],
+            'promo_code' => $request['promo_code'],
+            'hrdf_claim' => $request['hrdf_claim']
+        ]);
+
+        return response()->json([
+            "message" => "Successfully register"
+        ]);
+            
         } else if($request['role'] === 'company') {
             $validatedData = $request->validate([
                 'company_name' => 'required|string',
@@ -66,30 +55,27 @@ class AuthController extends Controller {
                 'company_type' => 'required|string',
                 'ssm_no' => 'required|string|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8',
-                'confirm_password' => 'required|string|min:8',
-                'phone_no' => 'required|string|min:8',
+                'password' => 'required|string',
+                'fullname' => 'required|string',
+                'ic' => 'required|string',
             ]);
 
-            if ($request['password']!=$request['confirm_password']) {
-                return back()->withErrors([
-                    'message' => ['The passwords does not match.']
-                ]);
-            } else {
-                User::create([
-                    'company_name' => $validatedData['company_name'],
-                    'company_address' => $validatedData['company_address'],
-                    'company_type' => $validatedData['company_type'],
-                    'ssm_no' => $validatedData['ssm_no'],
-                    'email' => $validatedData['email'],
-                    'password' => Hash::make($validatedData['password']),
-                    'phone_no' => $validatedData['phone_no']
-                ]);
-        
-                return response()->json([
-                    "message" => "Successfully register"
-                ]);
-            }
+            User::create([
+                'company_name' => $validatedData['company_name'],
+                'company_address' => $validatedData['company_address'],
+                'company_type' => $validatedData['company_type'],
+                'ssm_no' => $validatedData['ssm_no'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'fullname' => $validatedData['fullname'],
+                'ic' => $validatedData['ic'],
+                'role' => $request['role']
+            ]);
+    
+            return response()->json([
+                "message" => "Successfully register"
+            ]);
+            
         }
         
         // // dd($request->all()); mcm console.log
@@ -102,63 +88,34 @@ class AuthController extends Controller {
     }
 
     public function login(Request $request){
+        $credentials = $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|min:5'
+        ]);
 
-        if($request['role'] == "individu") {
-            $credentials = $request->validate([
-                'email' => 'required|string',
-                'password' => 'required|min:5'
-            ]);
-    
-            if (Auth::attempt($credentials)) {
-                // Authentication passed...
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
 
-                //Check email
-                $user = User::where('email', $request['email'])->firstOrFail();
+            //Check email
+            $user = User::where('email', $request['email'])->firstOrFail();
 
-                //Check password
-                if(!Hash::check($credentials['password'], $user->password)) {
-                    return response(["message" => "Bad credentials"], 401);
-                }
-
-                $token = $user->createToken('myapptoken')->plainTextToken;
-
-                return response()->json([
-                    "token" => $token,
-                    "id" => $user->id,
-                    "message" => "Success"
-                ]);
-            } else {
-                return response()->json([
-                    "message" => "Credentials not match"
-                ]);
+            //Check password
+            if(!Hash::check($credentials['password'], $user->password)) {
+                return response(["message" => "Bad credentials"], 401);
             }
+
+            $token = $user->createToken('myapptoken')->plainTextToken;
+
+            return response()->json([
+                "token" => $token,
+                "id" => $user->id,
+                "role" => $user->role,
+                "message" => "Success"
+            ]);
         } else {
-            $credentials = $request->validate([
-                'ssm_no' => 'required|string',
-                'password' => 'required|min:5'
+            return response()->json([
+                "message" => "Credentials not match"
             ]);
-    
-            if (Auth::attempt($credentials)) {
-                // Authentication passed..
-
-                //Check email
-                $user = User::where('ssm_no', $request['ssm_no'])->firstOrFail();
-
-                //Check password
-                if(!Hash::check($credentials['password'], $user->password)) {
-                    return response(["message" => "Bad credentials"], 401);
-                }
-
-                return response()->json([
-                    "token" => $user->createToken('auth_token')->plainTextToken,
-                    "id" => $user->id,
-                    "message" => "Success"
-                ]);
-            } else {
-                return response()->json([
-                    "message" => "Credentials not match"
-                ]);
-            }
         }
     }
 
