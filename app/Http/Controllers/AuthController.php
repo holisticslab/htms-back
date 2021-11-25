@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use HasApiToken;
 
 class AuthController extends Controller {
 
@@ -110,9 +111,20 @@ class AuthController extends Controller {
     
             if (Auth::attempt($credentials)) {
                 // Authentication passed...
+
+                //Check email
                 $user = User::where('email', $request['email'])->firstOrFail();
+
+                //Check password
+                if(!Hash::check($credentials['password'], $user->password)) {
+                    return response(["message" => "Bad credentials"], 401);
+                }
+
+                $token = $user->createToken('myapptoken')->plainTextToken;
+
                 return response()->json([
-                    "token" => $user->createToken('auth_token')->plainTextToken,
+                    "token" => $token,
+                    "id" => $user->id,
                     "message" => "Success"
                 ]);
             } else {
@@ -127,10 +139,19 @@ class AuthController extends Controller {
             ]);
     
             if (Auth::attempt($credentials)) {
-                // Authentication passed...
+                // Authentication passed..
+
+                //Check email
                 $user = User::where('ssm_no', $request['ssm_no'])->firstOrFail();
+
+                //Check password
+                if(!Hash::check($credentials['password'], $user->password)) {
+                    return response(["message" => "Bad credentials"], 401);
+                }
+
                 return response()->json([
                     "token" => $user->createToken('auth_token')->plainTextToken,
+                    "id" => $user->id,
                     "message" => "Success"
                 ]);
             } else {
@@ -139,6 +160,15 @@ class AuthController extends Controller {
                 ]);
             }
         }
+    }
+
+    public function logout(Request $request) {
+        $request->user()->currentAccessToken()->delete();
+        $response = [
+            'status'=>true,
+            'message'=>'Logout successfully',
+        ];
+        return response($response,201);
     }
 
     // public function update(Request $request, $id)
