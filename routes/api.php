@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // PUBLIC API
-Route::post('/ping', [HomeController::class, 'ping']);
+Route::get('/ping', [HomeController::class, 'ping']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
