@@ -28,6 +28,7 @@ Route::get('/ping', [HomeController::class, 'ping']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
+// PRIVATE API (TOKEN IS COMPULSORY)
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::get('/profile/{id}', [ProfileController::class, 'show']);

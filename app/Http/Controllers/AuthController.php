@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use HasApiToken;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller {
 
@@ -19,16 +20,20 @@ class AuthController extends Controller {
     public function register(Request $request) {
         
         if($request['role'] === 'individu') {
-            $validatedData = $request->validate([
+            $validatedData = Validator::make($request->all(), [
                 'fullname' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'ic' => 'required|string|max:12|unique:users',
-                'password' => 'required|string|min:8',
+                'password' => 'required|string|max:12',
                 'phone_no' => 'required|string|min:8',
                 'company_name' => 'required|string',
                 'company_address' => 'required|string'
             ]);
-
+    
+            if ($validatedData->fails()) {
+                $errors = $validatedData->errors();
+                return $errors->first();;
+            }
 
         User::create([
             'fullname' => $validatedData['fullname'],
@@ -49,7 +54,7 @@ class AuthController extends Controller {
         ]);
             
         } else if($request['role'] === 'company') {
-            $validatedData = $request->validate([
+            $validatedData = Validator::make($request->all(), [
                 'company_name' => 'required|string',
                 'company_address' => 'required|string',
                 'company_type' => 'required|string',
@@ -59,6 +64,11 @@ class AuthController extends Controller {
                 'fullname' => 'required|string',
                 'ic' => 'required|string',
             ]);
+
+            if ($validatedData->fails()) {
+                $errors = $validatedData->errors();
+                return $errors->first();;
+            }
 
             User::create([
                 'company_name' => $validatedData['company_name'],
@@ -88,19 +98,24 @@ class AuthController extends Controller {
     }
 
     public function login(Request $request){
-        $credentials = $request->validate([
+        $validatedData = Validator::make($request->all(), [
             'email' => 'required|string',
             'password' => 'required|min:5'
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if ($validatedData->fails()) {
+            $errors = $validatedData->errors();
+            return $errors->first();;
+        }
+
+        if (Auth::attempt($validatedData)) {
             // Authentication passed...
 
             //Check email
             $user = User::where('email', $request['email'])->firstOrFail();
 
             //Check password
-            if(!Hash::check($credentials['password'], $user->password)) {
+            if(!Hash::check($validatedData['password'], $user->password)) {
                 return response(["message" => "Bad credentials"], 401);
             }
 
