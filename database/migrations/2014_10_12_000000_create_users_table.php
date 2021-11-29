@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('fullname')->nullable();
             $table->string('ssm_no')->unique()->nullable();
             $table->string('company_name')->nullable();
-            $table->string('company_addess')->nullable();
+            $table->string('company_address')->nullable();
             $table->string('company_type')->nullable();
             $table->string('position')->nullable();
             $table->string('allergies')->nullable();

@@ -36,13 +36,13 @@ class AuthController extends Controller {
             }
 
         User::create([
-            'fullname' => $validatedData['fullname'],
-            'email' => $validatedData['email'],
-            'ic' => $validatedData['ic'],
-            'password' => Hash::make($validatedData['password']),
-            'phone_no' => $validatedData['phone_no'],
-            'company_name' => $validatedData['company_name'],
-            'company_address' => $validatedData['company_address'],
+            'fullname' => $request['fullname'],
+            'email' => $request['email'],
+            'ic' => $request['ic'],
+            'password' => Hash::make($request['password']),
+            'phone_no' => $request['phone_no'],
+            'company_name' => $request['company_name'],
+            'company_address' => $request['company_address'],
             'allergies' => $request['allergies'],
             'referrel_code' => $request['referrel_code'],
             'promo_code' => $request['promo_code'],
@@ -71,14 +71,14 @@ class AuthController extends Controller {
             }
 
             User::create([
-                'company_name' => $validatedData['company_name'],
-                'company_address' => $validatedData['company_address'],
-                'company_type' => $validatedData['company_type'],
-                'ssm_no' => $validatedData['ssm_no'],
-                'email' => $validatedData['email'],
-                'password' => Hash::make($validatedData['password']),
-                'fullname' => $validatedData['fullname'],
-                'ic' => $validatedData['ic'],
+                'company_name' => $request['company_name'],
+                'company_address' => $request['company_address'],
+                'company_type' => $request['company_type'],
+                'ssm_no' => $request['ssm_no'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+                'fullname' => $request['fullname'],
+                'ic' => $request['ic'],
                 'role' => $request['role']
             ]);
     
@@ -105,33 +105,37 @@ class AuthController extends Controller {
 
         if ($validatedData->fails()) {
             $errors = $validatedData->errors();
-            return $errors->first();;
+            return $errors->first();
+        }
+        
+        // Authentication passed...
+        //Check email
+        $credentials = User::where('email', $request['email'])->get();
+        
+        if($credentials->isEmpty()) {
+            return response("Email not exist.");
         }
 
-        if (Auth::attempt($validatedData)) {
-            // Authentication passed...
-
-            //Check email
-            $user = User::where('email', $request['email'])->firstOrFail();
-
-            //Check password
-            if(!Hash::check($validatedData['password'], $user->password)) {
-                return response(["message" => "Bad credentials"], 401);
-            }
-
-            $token = $user->createToken('myapptoken')->plainTextToken;
-
-            return response()->json([
-                "token" => $token,
-                "id" => $user->id,
-                "role" => $user->role,
-                "message" => "Success"
-            ]);
-        } else {
-            return response()->json([
-                "message" => "Credentials not match"
-            ]);
+        foreach ($credentials as $user) {
+            $user->password = $user->password;
         }
+
+        //Check password
+        if(!Hash::check($request->password, $user->password)) {
+            return response("Bad credentials", 401);
+        }
+
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        return response()->json([
+            "token" => $token,
+            "id" => $user->id,
+            "role" => $user->role,
+            "message" => "Success"
+        ]);
+
+
     }
 
     public function logout(Request $request) {
