@@ -21,7 +21,7 @@ class AuthController extends Controller {
         
         if($request['role'] === 'individu') {
             $validatedData = Validator::make($request->all(), [
-                'fullname' => 'required|string|max:255',
+                'fullname' => 'required|string|max:255|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'ic' => 'required|string|max:12|unique:users',
                 'password' => 'required|string|max:12',
@@ -32,7 +32,7 @@ class AuthController extends Controller {
     
             if ($validatedData->fails()) {
                 $errors = $validatedData->errors();
-                return $errors->first();;
+                return response($errors->first(), 400);
             }
 
         User::create([
@@ -57,28 +57,24 @@ class AuthController extends Controller {
             $validatedData = Validator::make($request->all(), [
                 'company_name' => 'required|string',
                 'company_address' => 'required|string',
-                'company_type' => 'required|string',
-                'ssm_no' => 'required|string|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string',
                 'fullname' => 'required|string',
-                'ic' => 'required|string',
+                'phone_no' => 'required|string',
             ]);
 
             if ($validatedData->fails()) {
                 $errors = $validatedData->errors();
-                return $errors->first();;
+                return response($errors->first(), 400);
             }
 
             User::create([
                 'company_name' => $request['company_name'],
                 'company_address' => $request['company_address'],
-                'company_type' => $request['company_type'],
-                'ssm_no' => $request['ssm_no'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'fullname' => $request['fullname'],
-                'ic' => $request['ic'],
+                'phone_no' => $request['phone_no'],
                 'role' => $request['role']
             ]);
     
@@ -105,7 +101,7 @@ class AuthController extends Controller {
 
         if ($validatedData->fails()) {
             $errors = $validatedData->errors();
-            return $errors->first();
+            return response($errors->first(), 400);
         }
         
         // Authentication passed...
@@ -113,7 +109,7 @@ class AuthController extends Controller {
         $credentials = User::where('email', $request['email'])->get();
         
         if($credentials->isEmpty()) {
-            return response("Email not exist.");
+            return response("Email not exist.", 400);
         }
 
         foreach ($credentials as $user) {
@@ -122,7 +118,7 @@ class AuthController extends Controller {
 
         //Check password
         if(!Hash::check($request->password, $user->password)) {
-            return response("Bad credentials", 401);
+            return response("Bad credentials", 400);
         }
 
 
