@@ -28,6 +28,14 @@ class AuthController extends Controller {
                 'phone_no' => 'required|string|min:8',
                 'company_name' => 'required|string',
                 'company_address' => 'required|string'
+            ],
+            [   
+                'fullname.required' => 'Please Input Full Name',
+                'ic.required' => 'Please Input Your Identification Number (for local) or Passport (for international)',
+                'company_name.required' => 'Please Input Company Name',
+                'company_address.required' => 'Please Input Company Address',
+                'fullname.max' => 'Full Name less than 255 characters',
+                'email.email' => 'Email must be in format email'
             ]);
     
             if ($validatedData->fails()) {

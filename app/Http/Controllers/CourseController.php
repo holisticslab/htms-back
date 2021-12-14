@@ -7,37 +7,30 @@ use App\Models\Course;
 
 class CourseController extends Controller
 {
-    public function GetCourseDetails() {
+    public function index() {
 
-        $title = $_SERVER['REMOTE_ADDR'];
-        $description = $_SERVER['REMOTE_ADDR'];
-        $course_fee = $_SERVER['REMOTE_ADDR'];
-        $max_student = $_SERVER['REMOTE_ADDR'];
-
-        $result = Course::insert([
-            'title' => $title,
-            'description' => $title,
-            'course_fee' => $title,
-            'max_student' => $title
-        ]);
-
-        return $result;
+        return Course::all();
     }
 
-    public function PostCourseDetails() {
+    public function create(Request $request) {
 
-        // $title = $request->input('title');
-        // $description = $request->input('description');
-        // $course_fee = $request->input('course_fee');
-        // $max_student = $request->input('max_student');
+        $course_name = $request->input('course_name');
+        $course_desc = $request->input('course_desc');
+        $course_fee = $request->input('course_fee');
+        $course_link = $request->input('course_link');
+        $max_student = $request->input('max_student');
 
-        // $result = Course::insert([
-        //     'title' => $title,
-        //     'description' => $description,
-        //     'course_fee' => $course_fee,
-        //     'max_student' => $max_student
-        // ]);
+        return Course::create([
+            'course_name'=> $course_name,
+            'course_desc'=>$course_desc,
+            'course_fee'=>$course_fee,
+            'course_link'=> $course_link,
+            'max_student'=> $max_student
+        ]);
+    }
 
-        return "test";
+    public function edit(Certificate $certificate)
+    {
+        //
     }
 }

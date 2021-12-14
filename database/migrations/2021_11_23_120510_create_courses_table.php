@@ -11,14 +11,16 @@ class CreateCoursesTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->string('max_student');
-            $table->string('course_fee');
+            $table->increments(column: 'course_id')->unique();
+            $table->string(column: 'course_name');
+            $table->text(column: 'course_desc')->nullable();
+            $table->integer(column: 'course_fee');
+            $table->text(column: 'course_link');
+            $table->string(column: 'max_student')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,7 @@ class CreateCoursesTable extends Migration
      *
      * @return void
      */
+
     public function down()
     {
         Schema::dropIfExists('courses');
