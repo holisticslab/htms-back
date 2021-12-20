@@ -23,9 +23,10 @@ class Course extends Model
      */
 
     protected $fillable = [
-        'title',
-        'description',
-        'max_student',
+        'course_name',
+        'course_desc',
         'course_fee',
+        'course_link',
+        'max_student'
     ];
 }

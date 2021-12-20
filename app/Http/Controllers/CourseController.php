@@ -9,28 +9,41 @@ class CourseController extends Controller
 {
     public function index() {
 
-        return Course::all();
+        return Course::latest()->paginate(10);
     }
 
     public function create(Request $request) {
 
-        $course_name = $request->input('course_name');
-        $course_desc = $request->input('course_desc');
-        $course_fee = $request->input('course_fee');
-        $course_link = $request->input('course_link');
-        $max_student = $request->input('max_student');
-
-        return Course::create([
-            'course_name'=> $course_name,
-            'course_desc'=>$course_desc,
-            'course_fee'=>$course_fee,
-            'course_link'=> $course_link,
-            'max_student'=> $max_student
+        $request->validate([
+            'course_name' => 'required',
+            'course_desc' => 'required',
+            'course_fee' => 'required',
+            'course_link' => 'required',
+            'max_student' => 'required',
         ]);
+
+        return Course::create($request->all());
     }
 
-    public function edit(Certificate $certificate)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'course_name' => 'required',
+            'course_desc' => 'required',
+            'course_fee' => 'required',
+            'course_link' => 'required',
+            'max_student' => 'required'
+        ]);
+    
+        $course = Course::find($id);
+        $course->update($request->all());
+        return $course;
+    }
+
+    public function destroy($id) 
+    {
+        $course = Course::find($id);
+        $course -> delete();
+        return "Successfully Delete";
     }
 }

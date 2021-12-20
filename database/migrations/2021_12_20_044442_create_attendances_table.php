@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCertificatesTable extends Migration
+class CreateAttendancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('certificates', function (Blueprint $table) {
+        Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
-            $table->text(column: 'certify_desc');
-            $table->string(column: 'certify_type');
-            $table->string(column: 'certify_file');
+            $table->foreignId('training_id');
+            $table->foreignId('trainee_id');
+            $table->datetime('attend_check_in');
+            $table->datetime('attend_check_out');
+            $table->text('attend_desc');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('certificates');
+        Schema::dropIfExists('attendances');
     }
 }

@@ -14,13 +14,14 @@ class CreateTrainingsTable extends Migration
     public function up()
     {
         Schema::create('trainings', function (Blueprint $table) {
-            $table->increments(column: 'train_id')->unique();
-            $table->integer(column: 'course_id')->constrained();
+            $table->id();
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->string(column: 'train_place');
             $table->string(column: 'train_address');
             $table->string(column: 'train_mode');
             $table->date(column: 'train_date_start');
             $table->date(column: 'train_date_end');
+            $table->integer(column: 'train_cohort');
             $table->timestamps();
         });
     }

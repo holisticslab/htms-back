@@ -12,28 +12,23 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller {
 
-    public function showRegister()
-    {
-        return view('auth.register');
-    }
-
     public function register(Request $request) {
+
+        $role_id = DB::table('roles')->where('role_type', $request->input('role_type'))->value('id');
         
-        if($request['role'] === 'individu') {
+        if($role_id === 2 || $role_id === 1) {
             $validatedData = Validator::make($request->all(), [
                 'fullname' => 'required|string|max:255|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'ic' => 'required|string|max:12|unique:users',
                 'password' => 'required|string|max:12',
                 'phone_no' => 'required|string|min:8',
-                'company_name' => 'required|string',
-                'company_address' => 'required|string'
+                'company_name' => 'required|string'
             ],
             [   
                 'fullname.required' => 'Please Input Full Name',
                 'ic.required' => 'Please Input Your Identification Number (for local) or Passport (for international)',
                 'company_name.required' => 'Please Input Company Name',
-                'company_address.required' => 'Please Input Company Address',
                 'fullname.max' => 'Full Name less than 255 characters',
                 'email.email' => 'Email must be in format email'
             ]);
@@ -50,21 +45,16 @@ class AuthController extends Controller {
             'password' => Hash::make($request['password']),
             'phone_no' => $request['phone_no'],
             'company_name' => $request['company_name'],
-            'company_address' => $request['company_address'],
-            'allergies' => $request['allergies'],
-            'referrel_code' => $request['referrel_code'],
-            'promo_code' => $request['promo_code'],
-            'hrdf_claim' => $request['hrdf_claim']
+            'role_id' => $role_id
         ]);
 
         return response()->json([
             "message" => "Successfully register"
         ]);
             
-        } else if($request['role'] === 'company') {
+        } else {
             $validatedData = Validator::make($request->all(), [
                 'company_name' => 'required|string',
-                'company_address' => 'required|string',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string',
                 'fullname' => 'required|string',
@@ -78,12 +68,11 @@ class AuthController extends Controller {
 
             User::create([
                 'company_name' => $request['company_name'],
-                'company_address' => $request['company_address'],
                 'email' => $request['email'],
                 'password' => Hash::make($request['password']),
                 'fullname' => $request['fullname'],
                 'phone_no' => $request['phone_no'],
-                'role' => $request['role']
+                'role_id' => $role_id
             ]);
     
             return response()->json([
@@ -95,10 +84,6 @@ class AuthController extends Controller {
         // // dd($request->all()); mcm console.log
         // // php artisan make:model <nama model> -m -c --api
     
-    }
-
-    public function showLogin(){
-        return view('auth.login');
     }
 
     public function login(Request $request){

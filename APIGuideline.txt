@@ -1,0 +1,29 @@
+//Command dump mysql
+mysqldump -u root hltm_db > hltmdb.sql
+
+
+Format Example
+
+/training [POST]
+
+{
+	"course_name": "PCIHA",
+	"train_place": "Medini 6",
+	"train_address": "Medini, Nusajaya, JB",
+	"train_date_start": "2021-12-15 00:00:00.000000",
+	"train_date_end": "2021-12-19 00:00:00.000000",
+	"train_mode": "online",
+	"train_cohort": 28 
+}
+
+/course [POST]
+
+{
+	"course_name": "PCIHA",
+	"course_desc": "Course testing",
+	"course_fee": "1000",
+	"course_link": "https://holistics.my",
+	"max_student": "100"
+}
+
+/course/{ID} [DELETE]
