@@ -25,7 +25,7 @@ class CreateTrainingsTable extends Migration
             $table->text(column: 'train_include')->nullable();
             $table->date(column: 'train_date_start');
             $table->date(column: 'train_date_end');
-            $table->integer(column: 'train_cohort')->nullable();
+            $table->string(column: 'train_cohort')->nullable();
             $table->timestamps();
         });
     }

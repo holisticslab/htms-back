@@ -47,6 +47,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/course/{id}', [CourseController::class, 'destroy']);
     Route::get('/training', [TrainingController::class, 'index']);
     Route::get('/training/{id}', [TrainingController::class, 'show']);
+    Route::get('/trainingbycourse/{id}', [TrainingController::class, 'showTrainingByCourseID']);
+    Route::get('/trainingbyyear/{year}', [TrainingController::class, 'showTrainingByYear']);
     Route::post('/training', [TrainingController::class, 'create']);
     Route::put('/training/{id}', [TrainingController::class, 'update']);
     Route::delete('/training/{id}', [TrainingController::class, 'destroy']);

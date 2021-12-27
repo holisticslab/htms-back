@@ -77,6 +77,16 @@ class TrainingController extends Controller
         return Training::find($id);
     }
 
+    public function showTrainingByCourseID($id)
+    {
+        return DB::table('trainings')->where('course_id', $id)->get();
+    }
+
+    public function showTrainingByYear($year)
+    {
+        return DB::table('trainings')->whereYear('train_date_start', $year)->get();
+    }
+
     /**
      * Update the specified resource in storage.
      *
