@@ -8,12 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Trainee extends Model
 {
     use HasFactory;
-    protected $guarded = [];
-
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
-    protected $table = 'trainees';
+    protected $fillable = [
+        'trainee_name',
+        'company_id',
+        'training_participate',
+        'trainee_status',
+        'trainer_payment',
+        'allergies',
+        'referrer_code',
+        'promo_code',
+        'hrdc_status'
+    ];
 }

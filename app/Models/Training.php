@@ -11,7 +11,11 @@ class Training extends Model
 
     protected $fillable = [
         'course_id',
+        'train_name',
         'train_place',
+        'train_desc',
+        'train_state',
+        'train_include',
         'train_address',
         'train_date_start',
         'train_date_end',

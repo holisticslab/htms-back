@@ -15,13 +15,17 @@ class CreateTrainingsTable extends Migration
     {
         Schema::create('trainings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
+            $table->foreignId('course_id')->nullable()->default(null)->onDelete('cascade');
+            $table->string(column: 'train_name');
             $table->string(column: 'train_place');
+            $table->string(column: 'train_state');
             $table->string(column: 'train_address');
             $table->string(column: 'train_mode');
+            $table->text(column: 'train_desc')->nullable();
+            $table->text(column: 'train_include')->nullable();
             $table->date(column: 'train_date_start');
             $table->date(column: 'train_date_end');
-            $table->integer(column: 'train_cohort');
+            $table->integer(column: 'train_cohort')->nullable();
             $table->timestamps();
         });
     }

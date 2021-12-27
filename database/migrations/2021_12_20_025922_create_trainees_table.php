@@ -15,9 +15,9 @@ class CreateTraineesTable extends Migration
     {
         Schema::create('trainees', function (Blueprint $table) {
             $table->id();
-            $table->text(column: 'trainee_name');
-            $table->foreignId('company_id');
-            $table->foreignId('training_id')->onDelete('cascade');
+            $table->foreignId('company_id')->constrained('companies');
+            $table->text(column: 'trainee_name')->nullable();
+            $table->text('training_participate')->nullable();
             $table->string(column: 'trainee_status')->nullable();
             $table->string(column: 'trainer_payment')->nullable();
             $table->string(column: 'allergies')->nullable();

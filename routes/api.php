@@ -40,10 +40,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/role', [RoleController::class, 'create']);
     Route::delete('/role/{id}', [RoleController::class, 'destroy']);
     Route::get('/course', [CourseController::class, 'index']);
+    Route::get('/coursename', [CourseController::class, 'showName']);
+    Route::get('/course/{id}', [CourseController::class, 'show']);
     Route::put('/course/{id}', [CourseController::class, 'update']);
     Route::post('/course', [CourseController::class, 'create']);
     Route::delete('/course/{id}', [CourseController::class, 'destroy']);
     Route::get('/training', [TrainingController::class, 'index']);
+    Route::get('/training/{id}', [TrainingController::class, 'show']);
     Route::post('/training', [TrainingController::class, 'create']);
     Route::put('/training/{id}', [TrainingController::class, 'update']);
     Route::delete('/training/{id}', [TrainingController::class, 'destroy']);

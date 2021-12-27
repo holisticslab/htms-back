@@ -16,7 +16,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        return Training::all();
+        return Training::paginate(10); 
     }
 
     /**
@@ -26,25 +26,33 @@ class TrainingController extends Controller
      */
     public function create(Request $request)
     {
+        // $course_id = DB::table('courses')->where('course_name', $request->input('course_name'))->value('id');
 
-        $course_id = DB::table('courses')->where('course_name', $request->input('course_name'))->value('id');
-
+        $course_id = $request->input('course_id');
+        $train_name = $request->input('train_name');
         $train_place = $request->input('train_place');
         $train_address = $request->input('train_address');
+        $train_state = $request->input('train_state');
+        $train_desc = $request->input('train_desc');
         $train_date_start = $request->input('train_date_start');
         $train_date_end = $request->input('train_date_end');
         $train_mode = $request->input('train_mode');
         $train_cohort = $request->input('train_cohort');
 
-        return Training::create([
+        Training::create([
             'course_id'=> $course_id,
+            'train_name'=> $train_name,
             'train_place'=> $train_place,
             'train_address'=>$train_address,
+            'train_state'=>$train_state,
+            'train_desc'=>$train_desc,
             'train_date_start'=>$train_date_start,
             'train_date_end'=> $train_date_end,
             'train_mode'=> $train_mode,
             'train_cohort' => $train_cohort
         ]);
+
+        return Training::paginate(10); 
     }
 
     /**
@@ -64,9 +72,9 @@ class TrainingController extends Controller
      * @param  \App\Models\Training  $training
      * @return \Illuminate\Http\Response
      */
-    public function show(Training $training)
+    public function show($id)
     {
-        //
+        return Training::find($id);
     }
 
     /**
@@ -79,17 +87,17 @@ class TrainingController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
+            'train_name' => 'required',
             'train_place' => 'required',
             'train_address' => 'required',
             'train_date_start' => 'required',
             'train_date_end' => 'required',
             'train_mode' => 'required',
-            'train_cohort' => 'required'
         ]);
     
         $training = Training::find($id);
         $training->update($request->all());
-        return $training;
+        return Training::paginate(10); 
     }
 
     /**
@@ -102,6 +110,6 @@ class TrainingController extends Controller
     {
         $training = Training::find($id);
         $training -> delete();
-        return "Successfully Delete";
+        return Training::paginate(10); 
     }
 }

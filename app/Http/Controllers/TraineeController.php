@@ -27,8 +27,9 @@ class TraineeController extends Controller
     {
         
         $company_id = DB::table('companies')->where('company_name', $request->input('company_name'))->value('id');
-        $training_id = DB::table('training')->where('training_name', $request->input('training_name'))->value('id');
+        // $training_id = DB::table('training')->where('training_name', $request->input('training_name'))->value('id');
 
+        $trainee_participate = $request->input('trainee_participate');
         $trainee_name = $request->input('trainee_name');
         $trainee_status = $request->input('trainee_status');
         $trainer_payment = $request->input('trainer_payment');
@@ -39,7 +40,7 @@ class TraineeController extends Controller
 
         return Training::create([
             'company_id'=> $company_id,
-            'training_id'=> $training_id,
+            'training_participate'=> $training_participate,
             'trainee_name'=> $trainee_name,
             'trainee_status'=>$trainee_status,
             'trainer_payment'=>$trainer_payment,

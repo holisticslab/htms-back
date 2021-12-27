@@ -129,7 +129,7 @@ CREATE TABLE `companies` (
 
 LOCK TABLES `companies` WRITE;
 /*!40000 ALTER TABLE `companies` DISABLE KEYS */;
-INSERT INTO `companies` VALUES (1,'Holistics Lab','1151997-T','Halal Service Provider','HOLISTICS Lab Sdn Bhd mission is to promote research, development and commercialization activities in organizational, social and technological aspects of the Halal industry with the aim to preserve and maintain the integrity of products and services across the Halal supply chain. Our company deals with the computation, cognitive and social aspects of resources, devices, methods, techniques, and methodologies required to optimize the acquisition, storage, retrieval, and use of information in Halal supply chain (Farm to Fork) based on halal standard and Shariah Law.','2021-12-19 20:50:43','2021-12-19 20:50:43');
+INSERT INTO `companies` VALUES (1,'Holistics Lab','1151997-T','Halal Service Provider','HOLISTICS Lab Sdn Bhd mission is to promote research, development and commercialization activities in organizational, social and technological aspects of the Halal industry with the aim to preserve and maintain the integrity of products and services across the Halal supply chain. Our company deals with the computation, cognitive and social aspects of resources, devices, methods, techniques, and methodologies required to optimize the acquisition, storage, retrieval, and use of information in Halal supply chain (Farm to Fork) based on halal standard and Shariah Law.','2021-12-20 19:09:27','2021-12-20 19:09:27');
 /*!40000 ALTER TABLE `companies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +240,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_08_19_000000_create_failed_jobs_table',1),(3,'2019_12_14_000001_create_personal_access_tokens_table',1),(4,'2021_11_23_120510_create_courses_table',1),(5,'2021_11_23_154732_create_posts_table',1),(6,'2021_12_14_072850_create_attachments_table',1),(7,'2021_12_14_075501_create_certificates_table',1),(8,'2021_12_14_075751_create_trainings_table',1),(9,'2021_12_20_015922_create_trainees_table',1),(10,'2021_12_20_021125_create_companies_table',1),(11,'2021_12_20_021823_create_roles_table',1),(12,'2021_12_20_044414_create_discounts_table',1),(13,'2021_12_20_044442_create_attendances_table',1),(14,'2021_12_21_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_08_19_000000_create_failed_jobs_table',1),(3,'2019_12_14_000001_create_personal_access_tokens_table',1),(4,'2021_11_23_120510_create_courses_table',1),(5,'2021_11_23_154732_create_posts_table',1),(6,'2021_12_14_072850_create_attachments_table',1),(7,'2021_12_14_075501_create_certificates_table',1),(8,'2021_12_14_075751_create_trainings_table',1),(9,'2021_12_20_021125_create_companies_table',1),(10,'2021_12_20_021823_create_roles_table',1),(11,'2021_12_20_025922_create_trainees_table',1),(12,'2021_12_20_044414_create_discounts_table',1),(13,'2021_12_20_044442_create_attendances_table',1),(14,'2021_12_21_000000_create_users_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,9 +360,9 @@ DROP TABLE IF EXISTS `trainees`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trainees` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `trainee_name` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `company_id` bigint(20) unsigned NOT NULL,
-  `training_id` bigint(20) unsigned NOT NULL,
+  `trainee_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `training_participate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `trainee_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `trainer_payment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `allergies` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -371,7 +371,9 @@ CREATE TABLE `trainees` (
   `hrdc_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `trainees_company_id_foreign` (`company_id`),
+  CONSTRAINT `trainees_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -450,7 +452,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,NULL,1,'admin@example.com','961124065045','$2y$10$M7LcsmlnpYSHGdeooNOFoOdIYZaRqlYQBENpE7hEf4CnNdl/77/PG','0176754281','irsyad',NULL,NULL,'2021-12-19 20:50:43','2021-12-19 20:50:43');
+INSERT INTO `users` VALUES (1,NULL,1,'admin@example.com','961124065045','$2y$10$4D56cNz.CLa.htDSJU4klu2W6OhwhmkS/0oJLgAP2alyQNAWVoGDK','0176754281','irsyad',NULL,NULL,'2021-12-20 19:09:27','2021-12-20 19:09:27');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -463,4 +465,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-20 12:51:20
+-- Dump completed on 2021-12-21 11:09:57

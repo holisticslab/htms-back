@@ -4,12 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use Illuminate\Support\Facades\DB;
+
 
 class CourseController extends Controller
 {
     public function index() {
 
-        return Course::latest()->paginate(10);
+        return Course::paginate(10);
+    }
+
+    public function show($id)
+    {
+        return Course::find($id);
+    }
+
+    public function showName()
+    {
+        return DB::table('courses')->select('course_name', 'id')->get();
     }
 
     public function create(Request $request) {
@@ -22,11 +34,12 @@ class CourseController extends Controller
             'max_student' => 'required',
         ]);
 
-        return Course::create($request->all());
+        Course::create($request->all());
+
+        return Course::paginate(10); 
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $request->validate([
             'course_name' => 'required',
             'course_desc' => 'required',
@@ -36,14 +49,19 @@ class CourseController extends Controller
         ]);
     
         $course = Course::find($id);
-        $course->update($request->all());
-        return $course;
+        $course->course_name = $request->course_name;
+        $course->course_desc = $request->course_desc;
+        $course->course_fee = $request->course_fee;
+        $course->course_link = $request->course_link;
+        $course->max_student = $request->max_student;
+        $course->save();
+        return Course::paginate(10);
     }
 
     public function destroy($id) 
     {
         $course = Course::find($id);
         $course -> delete();
-        return "Successfully Delete";
+        return Course::paginate(10);
     }
 }
