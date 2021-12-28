@@ -18,6 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string(column: 'company_name');
             $table->string(column: 'company_register_no');
             $table->string(column: 'company_type');
+            $table->string(column: 'company_branch');
             $table->text(column: 'company_details');
             $table->timestamps();
         });

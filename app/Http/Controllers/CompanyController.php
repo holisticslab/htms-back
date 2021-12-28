@@ -25,16 +25,20 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
         $company_name = $request->input('company_name');
+        $company_branch = $request->input('company_branch');
         $company_register_no = $request->input('company_register_no');
         $company_type = $request->input('company_type');
         $company_details = $request->input('company_details');
 
-        return Company::create([
+        Company::create([
+            'company_branch' => $company_branch,
             'company_name' => $company_name,
             'company_register_no' => $company_register_no,
             'company_type' => $company_type,
             'company_details' => $company_details
         ]);
+
+        return Company::paginate(10);
     }
 
     /**
@@ -79,7 +83,17 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $request->validate([
+            'company_name' => 'required',
+            'company_branch' => 'required',
+            'company_register_no' => 'required',
+            'company_type' => 'required',
+            'company_details' => 'required'
+        ]);
+    
+        $company = Company::find($id);
+        $company->update($request->all());
+        return Company::paginate(10); 
     }
 
     /**
@@ -90,6 +104,8 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company = Company::find($id);
+        $company -> delete();
+        return Company::paginate(10); 
     }
 }

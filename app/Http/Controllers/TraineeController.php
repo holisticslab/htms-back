@@ -91,7 +91,16 @@ class TraineeController extends Controller
      */
     public function update(Request $request, Trainee $trainee)
     {
-        //
+        $request->validate([
+            'trainee_name' => 'required',
+            'trainee_ic' => 'required',
+            'trainee_email' => 'required',
+            'trainee_phoneno' => 'required',
+        ]);
+    
+        $trainee = Trainee::find($id);
+        $trainee->update($request->all());
+        return Trainee::paginate(10); 
     }
 
     /**
@@ -102,6 +111,8 @@ class TraineeController extends Controller
      */
     public function destroy(Trainee $trainee)
     {
-        //
+        $trainee = Trainee::find($id);
+        $trainee -> delete();
+        return Trainee::paginate(10); 
     }
 }
