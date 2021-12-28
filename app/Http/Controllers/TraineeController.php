@@ -71,6 +71,12 @@ class TraineeController extends Controller
         //
     }
 
+    public function showName($id)
+    {
+        return DB::table('trainees')->where('training_participate', $id)->get();
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -17,7 +17,10 @@ class CreateDiscountsTable extends Migration
             $table->id();
             $table->foreignId('training_id');
             $table->integer('discount_value');
+            $table->string('discount_code');
             $table->text('discount_desc');
+            $table->date('discount_start_date');
+            $table->date('discount_end_date');
             $table->integer('limit_discount');
             $table->timestamps();
         });

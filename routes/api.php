@@ -54,7 +54,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/training/{id}', [TrainingController::class, 'update']);
     Route::delete('/training/{id}', [TrainingController::class, 'destroy']);
     Route::get('/trainee', [TraineeController::class, 'index']);
+    Route::get('/trainee/{id}', [TraineeController::class, 'showName']);
     Route::post('/trainee', [TraineeController::class, 'create']);
+    Route::put('/trainee/{id}', [TraineeController::class, 'update']);
+    Route::delete('/trainee/{id}', [TraineeController::class, 'destroy']);
+    Route::get('/state', [StateController::class, 'index']);
+    Route::post('/state', [StateController::class, 'create']);
+    Route::put('/state/{id}', [StateController::class, 'update']);
+    Route::delete('/state/{id}', [StateController::class, 'destroy']);
+    Route::get('/discount', [DiscountController::class, 'index']);
+    Route::post('/discount', [DiscountController::class, 'create']);
+    Route::put('/discount/{id}', [DiscountController::class, 'update']);
+    Route::delete('/discount/{id}', [DiscountController::class, 'destroy']);
     Route::get('/company', [CompanyController::class, 'index']);
     Route::post('/company', [CompanyController::class, 'create']);
     Route::post("/logout",[AuthController::class,'logout']);
