@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/training/{id}', [TrainingController::class, 'show']);
     Route::get('/trainingbycourse/{id}', [TrainingController::class, 'showTrainingByCourseID']);
     Route::get('/trainingbyyear/{year}', [TrainingController::class, 'showTrainingByYear']);
+    Route::get('/totaltrainee/{id}', [TrainingController::class, 'getTotalTrainee']);
     Route::post('/training', [TrainingController::class, 'create']);
     Route::put('/training/{id}', [TrainingController::class, 'update']);
     Route::delete('/training/{id}', [TrainingController::class, 'destroy']);

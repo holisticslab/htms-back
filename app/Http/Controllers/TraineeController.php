@@ -15,7 +15,7 @@ class TraineeController extends Controller
      */
     public function index()
     {
-        return Trainee::latest()->all();
+        return Trainee::paginate(10);
     }
 
     /**
@@ -26,29 +26,38 @@ class TraineeController extends Controller
     public function create(Request $request)
     {
         
-        $company_id = DB::table('companies')->where('company_name', $request->input('company_name'))->value('id');
+        // $company_id = DB::table('companies')->where('company_name', $request->input('company_name'))->value('id');
         // $training_id = DB::table('training')->where('training_name', $request->input('training_name'))->value('id');
 
-        $trainee_participate = $request->input('trainee_participate');
+        $company_id = $request->input('company_id');
+        $training_participate = $request->input('training_id');
         $trainee_name = $request->input('trainee_name');
+        $trainee_ic = $request->input('trainee_ic');
+        $trainee_email = $request->input('trainee_email');
+        $trainee_phoneno = $request->input('trainee_phoneno');
         $trainee_status = $request->input('trainee_status');
-        $trainer_payment = $request->input('trainer_payment');
+        $trainee_payment = $request->input('trainee_payment');
         $allergies = $request->input('allergies');
         $referrer_code = $request->input('referrer_code');
         $promo_code = $request->input('promo_code');
         $hrdc_status = $request->input('hrdc_status');
 
-        return Training::create([
+        Trainee::create([
             'company_id'=> $company_id,
             'training_participate'=> $training_participate,
             'trainee_name'=> $trainee_name,
+            'trainee_ic'=> $trainee_ic,
+            'trainee_email'=> $trainee_email,
+            'trainee_phoneno'=> $trainee_phoneno,
             'trainee_status'=>$trainee_status,
-            'trainer_payment'=>$trainer_payment,
+            'trainee_payment'=>$trainee_payment,
             'allergies'=> $allergies,
             'referrer_code'=> $referrer_code,
             'promo_code' => $promo_code,
             'hrdc_status' => $hrdc_status
         ]);
+
+        return Trainee::paginate(10);
     }
 
     /**

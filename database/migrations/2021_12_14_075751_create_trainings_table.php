@@ -23,6 +23,7 @@ class CreateTrainingsTable extends Migration
             $table->string(column: 'train_mode');
             $table->text(column: 'train_desc')->nullable();
             $table->text(column: 'train_include')->nullable();
+            $table->string(column: 'total_trainee')->nullable();
             $table->date(column: 'train_date_start');
             $table->date(column: 'train_date_end');
             $table->string(column: 'train_cohort')->nullable();

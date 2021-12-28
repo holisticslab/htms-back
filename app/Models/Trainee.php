@@ -10,6 +10,9 @@ class Trainee extends Model
     use HasFactory;
     protected $fillable = [
         'trainee_name',
+        'trainee_ic',
+        'trainee_phoneno',
+        'trainee_email',
         'company_id',
         'training_participate',
         'trainee_status',

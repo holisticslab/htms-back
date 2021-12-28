@@ -87,6 +87,11 @@ class TrainingController extends Controller
         return DB::table('trainings')->whereYear('train_date_start', $year)->get();
     }
 
+    public function getTotalTrainee($id) 
+    {
+        return DB::table('trainees')->where('training_id', $id)-get()->count();
+    }
+
     /**
      * Update the specified resource in storage.
      *
