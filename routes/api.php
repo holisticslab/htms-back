@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/discount/{id}', [DiscountController::class, 'update']);
     Route::delete('/discount/{id}', [DiscountController::class, 'destroy']);
     Route::get('/company', [CompanyController::class, 'index']);
+    Route::get('/company/{id}', [CompanyController::class, 'show']);
     Route::post('/company', [CompanyController::class, 'create']);
     Route::put('/company/{id}', [CompanyController::class, 'update']);
     Route::delete('/company/{id}', [CompanyController::class, 'destroy']);
