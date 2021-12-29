@@ -68,6 +68,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/discount/{id}', [DiscountController::class, 'destroy']);
     Route::get('/company', [CompanyController::class, 'index']);
     Route::post('/company', [CompanyController::class, 'create']);
+    Route::delete('/company', [CompanyController::class, 'destroy']);
     Route::post("/logout",[AuthController::class,'logout']);
 });
 
