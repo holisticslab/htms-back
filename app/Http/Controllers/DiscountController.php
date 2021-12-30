@@ -22,7 +22,7 @@ class DiscountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $training_id = $request->input('training_id');
         $discount_value = $request->input('discount_value');

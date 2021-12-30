@@ -22,7 +22,7 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $state_no = $request->input('state_no');
         $state_name = $request->input('state_name');
