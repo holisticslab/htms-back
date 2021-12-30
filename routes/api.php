@@ -10,6 +10,8 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\StateController;
 
 /*
 |--------------------------------------------------------------------------
