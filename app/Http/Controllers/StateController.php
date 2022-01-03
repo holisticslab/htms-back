@@ -24,11 +24,11 @@ class StateController extends Controller
      */
     public function create(Request $request)
     {
-        $state_no = $request->input('state_no');
+        $state_code = $request->input('state_code');
         $state_name = $request->input('state_name');
 
         State::create([
-            'state_no'=> $state_no,
+            'state_code'=> $state_code,
             'state_name'=> $state_name,
         ]);
 
@@ -79,7 +79,7 @@ class StateController extends Controller
     {
         $request->validate([
             'state_name' => 'required',
-            'state_no' => 'required'
+            'state_code' => 'required'
         ]);
     
         $state = State::find($id);
