@@ -72,7 +72,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/company/{id}', [CompanyController::class, 'show']);
     Route::post('/company', [CompanyController::class, 'create']);
     Route::put('/company/{id}', [CompanyController::class, 'update']);
-    Route::delete('/company/{id}', [CompanyController::class, 'destroy']);
+    Route::get('/invoice', [InvoiceController::class, 'index']);
+    Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
+    Route::post('/invoice', [InvoiceController::class, 'create']);
+    Route::put('/invoice/{id}', [InvoiceController::class, 'update']);
+    Route::delete('/invoice/{id}', [InvoiceController::class, 'destroy']);
+    Route::get('/billing', [BillingController::class, 'index']);
+    Route::get('/billing/{id}', [BillingController::class, 'show']);
+    Route::put('/billing/{id}', [BillingController::class, 'update']);
+    Route::delete('/billing/{id}', [BillingController::class, 'destroy']);
     Route::post("/logout",[AuthController::class,'logout']);
 });
 
