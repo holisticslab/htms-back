@@ -12,6 +12,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\StateController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\BillingController;
 
 /*
 |--------------------------------------------------------------------------

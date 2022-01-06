@@ -95,7 +95,7 @@ class TraineeController extends Controller
      * @param  \App\Models\Trainee  $trainee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Trainee $trainee)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'trainee_name' => 'required',
