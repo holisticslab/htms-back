@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/trainee/{id}', [TraineeController::class, 'update']);
     Route::delete('/trainee/{id}', [TraineeController::class, 'destroy']);
     Route::get('/state', [StateController::class, 'index']);
+    Route::get('/state/{id}', [StateController::class, 'show']);
     Route::post('/state', [StateController::class, 'create']);
     Route::put('/state/{id}', [StateController::class, 'update']);
     Route::delete('/state/{id}', [StateController::class, 'destroy']);

@@ -52,9 +52,9 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function show(State $state)
+    public function show($id)
     {
-        //
+        return State::find($id);
     }
 
     /**
