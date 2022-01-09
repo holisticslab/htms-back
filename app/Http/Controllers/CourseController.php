@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 class CourseController extends Controller
 {
     public function index() {
-
         return Course::paginate(10);
     }
 
@@ -31,6 +30,7 @@ class CourseController extends Controller
             'course_desc' => 'required',
             'course_fee' => 'required',
             'course_link' => 'required',
+            'course_image' => 'required',
             'max_student' => 'required',
         ]);
 
@@ -45,6 +45,7 @@ class CourseController extends Controller
             'course_desc' => 'required',
             'course_fee' => 'required',
             'course_link' => 'required',
+            'course_image' => 'required',
             'max_student' => 'required'
         ]);
     
@@ -53,6 +54,7 @@ class CourseController extends Controller
         $course->course_desc = $request->course_desc;
         $course->course_fee = $request->course_fee;
         $course->course_link = $request->course_link;
+        $course->course_image = $request->course_image;
         $course->max_student = $request->max_student;
         $course->save();
         return Course::paginate(10);

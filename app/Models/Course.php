@@ -27,6 +27,7 @@ class Course extends Model
         'course_desc',
         'course_fee',
         'course_link',
+        'course_image',
         'max_student'
     ];
 }

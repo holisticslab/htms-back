@@ -32,7 +32,7 @@ class DiscountController extends Controller
         $discount_end_date = $request->input('discount_end_date');
         $limit_discount = $request->input('limit_discount');
 
-        State::create([
+        Discount::create([
             'training_id' => $training_id,
             'discount_value' => $discount_value,
             'discount_code' => $discount_code,
@@ -42,7 +42,7 @@ class DiscountController extends Controller
             'limit_discount' => $limit_discount,
         ]);
 
-        return State::paginate(10);
+        return Discount::paginate(10);
     }
 
     /**

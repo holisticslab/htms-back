@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->text(column: 'course_desc')->nullable();
             $table->integer(column: 'course_fee');
             $table->text(column: 'course_link');
+            $table->text(column: 'course_image');
             $table->string(column: 'max_student')->nullable();
             $table->timestamps();
         });
