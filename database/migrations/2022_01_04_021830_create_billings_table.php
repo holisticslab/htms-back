@@ -15,7 +15,6 @@ class CreateBillingsTable extends Migration
     {
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('invoice_id');
             $table->string(column: "biller_name");
             $table->string(column: "biller_address");
             $table->string(column: "biller_phone_no");

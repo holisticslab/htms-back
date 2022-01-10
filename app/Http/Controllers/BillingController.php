@@ -70,7 +70,6 @@ class BillingController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'invoice_id' => 'required',
             'biller_name' => 'required',
             'biller_address' => 'required',
             'biller_phone_no' => 'required',

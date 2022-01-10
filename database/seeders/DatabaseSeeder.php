@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Company;
 use App\Models\Course;
+use App\Models\Billing;
 use App\Models\Training;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -58,6 +59,15 @@ class DatabaseSeeder extends Seeder
             'course_fee' => 1000,
             'course_image' => '',
             'course_link' => 'facebook/miraa'
+        ]);
+
+        Billing::create([
+            'biller_name' => 'Holis Tic Lab',
+            'biller_address' => 'Med 7',
+            'biller_phone_no' => '0111111',
+            'biller_email' => '@holisticslab.my',
+            'biller_subject' => 'Testing',
+            'biller_notes' => 'Im a happy boy'
         ]);
 
         Training::create([

@@ -9,7 +9,6 @@ class Billing extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'invoice_id',
         'biller_name',
         'biller_address',
         'biller_phone_no',
