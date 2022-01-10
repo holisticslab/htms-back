@@ -44,7 +44,6 @@ class TraineeController extends Controller
 
         Trainee::create([
             'company_id'=> $company_id,
-            'training_participate'=> $training_participate,
             'trainee_name'=> $trainee_name,
             'trainee_ic'=> $trainee_ic,
             'trainee_email'=> $trainee_email,
