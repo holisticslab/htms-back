@@ -62,7 +62,7 @@ class DiscountController extends Controller
      * @param  \App\Models\Discount  $discount
      * @return \Illuminate\Http\Response
      */
-    public function show(Discount $discount)
+    public function show($id)
     {
         //
     }

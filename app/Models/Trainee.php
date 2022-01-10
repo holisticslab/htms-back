@@ -14,7 +14,6 @@ class Trainee extends Model
         'trainee_phoneno',
         'trainee_email',
         'company_id',
-        'training_participate',
         'trainee_status',
         'trainer_payment',
         'allergies',
