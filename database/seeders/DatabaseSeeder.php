@@ -30,16 +30,17 @@ class DatabaseSeeder extends Seeder
             'phone_no' => '0176754281',
         ]);
 
-        Role::create(
-        [
+        Role::create([
             'role_type' => 'admin',
             'role_desc' => 'Super admin, monitoring system'
-        ], 
-        [
+        ]);
+
+        Role::create([
             'role_type' => 'personal',
             'role_desc' => 'personal, use system for personal'
-        ], 
-        [
+        ]);
+
+        Role::create([
             'role_type' => 'company',
             'role_desc' => 'company, use system for company'
         ]);
@@ -49,7 +50,17 @@ class DatabaseSeeder extends Seeder
             'company_register_no' => '1151997-T',
             'company_type' => 'Halal Service Provider',
             'company_branch' => 'HQ',
-            'company_details' => 'HOLISTICS Lab Sdn Bhd mission is to promote research, development and commercialization activities in organizational, social and technological aspects of the Halal industry with the aim to preserve and maintain the integrity of products and services across the Halal supply chain. Our company deals with the computation, cognitive and social aspects of resources, devices, methods, techniques, and methodologies required to optimize the acquisition, storage, retrieval, and use of information in Halal supply chain (Farm to Fork) based on halal standard and Shariah Law.'
+            'company_details' => 'HOLISTICS Lab Sdn Bhd mission is to promote research, development and commercialization activities in organizational, social and technological aspects of the Halal industry with the aim to preserve and maintain the integrity of products and services across the Halal supply chain. Our company deals with the computation, cognitive and social aspects of resources, devices, methods, techniques, and methodologies required to optimize the acquisition, storage, retrieval, and use of information in Halal supply chain (Farm to Fork) based on halal standard and Shariah Law.',
+            'company_address' => 'Medini 7'
+        ]);
+
+        Company::create([
+            'company_name' => 'Ikom Solutions',
+            'company_register_no' => '1111111-V',
+            'company_type' => 'IT Service Provider',
+            'company_branch' => '',
+            'company_details' => 'Slowly but surely',
+            'company_address' => 'Semenyih, Selangor'
         ]);
 
         Course::create([

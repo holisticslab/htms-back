@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use HasApiToken;
 use Illuminate\Support\Facades\Validator;
@@ -16,14 +17,15 @@ class AuthController extends Controller {
 
         $role_id = DB::table('roles')->where('role_type', $request->input('role_type'))->value('id');
         
-        if($role_id === 2 || $role_id === 1) {
+        // personal login
+        if($role_id === 2) {
             $validatedData = Validator::make($request->all(), [
                 'fullname' => 'required|string|max:255|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
                 'ic' => 'required|string|max:12|unique:users',
                 'password' => 'required|string|max:12',
                 'phone_no' => 'required|string|min:8',
-                'company_name' => 'required|string'
+                'company_id' => 'required|string'
             ],
             [   
                 'fullname.required' => 'Please Input Full Name',
@@ -44,7 +46,7 @@ class AuthController extends Controller {
             'ic' => $request['ic'],
             'password' => Hash::make($request['password']),
             'phone_no' => $request['phone_no'],
-            'company_name' => $request['company_name'],
+            'company_id' => $request['company_id'],
             'role_id' => $role_id
         ]);
 
@@ -53,23 +55,24 @@ class AuthController extends Controller {
         ]);
             
         } else {
+            //company register
             $validatedData = Validator::make($request->all(), [
-                'company_name' => 'required|string',
+                'company_id' => 'required|string',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string',
                 'fullname' => 'required|string',
                 'phone_no' => 'required|string',
             ]);
-
+            
             if ($validatedData->fails()) {
                 $errors = $validatedData->errors();
                 return response($errors->first(), 400);
             }
-
+            
             User::create([
-                'company_name' => $request['company_name'],
-                'email' => $request['email'],
+                'company_id' => $request['company_id'],
                 'password' => Hash::make($request['password']),
+                'email' => $request['email'],
                 'fullname' => $request['fullname'],
                 'phone_no' => $request['phone_no'],
                 'role_id' => $role_id
@@ -116,11 +119,11 @@ class AuthController extends Controller {
 
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-
+        $role =  DB::table('roles')->where('id', $user->role_id)->get('role_type');
         return response()->json([
             "token" => $token,
             "id" => $user->id,
-            "role" => $user->role,
+            "role" => $role,
             "message" => "Success"
         ]);
 

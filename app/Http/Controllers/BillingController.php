@@ -67,6 +67,7 @@ class BillingController extends Controller
      * @param  \App\Models\Billing  $billing
      * @return \Illuminate\Http\Response
      */
+    
     public function update(Request $request, $id)
     {
         $request->validate([

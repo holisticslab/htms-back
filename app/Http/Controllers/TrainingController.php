@@ -77,6 +77,11 @@ class TrainingController extends Controller
         return Training::find($id);
     }
 
+    public function showName()
+    {
+        return DB::table('trainings')->select('train_name', 'id')->get();
+    }
+
     public function showTrainingByCourseID($id)
     {
         return DB::table('trainings')->where('course_id', $id)->get();

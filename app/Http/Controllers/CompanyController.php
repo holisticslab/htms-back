@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -61,6 +62,16 @@ class CompanyController extends Controller
     public function show($id)
     {
         return Company::find($id);
+    }
+
+    public function showName()
+    {
+        return DB::table('companies')->select('company_name', 'id')->get();
+    }
+
+    public function showAddressbyId($id)
+    {
+        return DB::table('companies')->select('company_address')->where('id', $id)->get();
     }
 
     /**

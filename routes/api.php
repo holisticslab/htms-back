@@ -27,14 +27,16 @@ use App\Http\Controllers\BillingController;
 */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// PUBLIC API
-Route::get('/ping', [HomeController::class, 'ping']);
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-
+    //     return $request->user();
+    // });
+    
+    // PUBLIC API
+    Route::get('/ping', [HomeController::class, 'ping']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/companyname', [CompanyController::class, 'showName']);
+    Route::get('/companyaddress/{id}', [CompanyController::class, 'showAddressbyId']);
+    
 // PRIVATE API (TOKEN IS COMPULSORY)
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', [ProfileController::class, 'index']);
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/trainingbyyear/{year}', [TrainingController::class, 'showTrainingByYear']);
     Route::get('/totaltrainee/{id}', [TrainingController::class, 'getTotalTrainee']);
     Route::post('/training', [TrainingController::class, 'create']);
+    Route::get('/trainingname', [TrainingController::class, 'showName']);
     Route::put('/training/{id}', [TrainingController::class, 'update']);
     Route::delete('/training/{id}', [TrainingController::class, 'destroy']);
     Route::get('/trainee', [TraineeController::class, 'index']);
