@@ -86,7 +86,7 @@ class AuthController extends Controller {
                     'phone_no' => $request['phone_no'],
                     'role_id' => $role_id
                 ]);
-                
+
             } else {
                 User::create([
                     'company_id' => $request['company_id'],
@@ -143,6 +143,7 @@ class AuthController extends Controller {
         return response()->json([
             "token" => $token,
             "id" => $user->id,
+            "company_id" => $user->company_id,
             "role" => $role,
             "message" => "Success"
         ]);
