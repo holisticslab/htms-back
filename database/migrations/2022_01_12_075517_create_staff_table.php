@@ -15,11 +15,11 @@ class CreateStaffTable extends Migration
     {
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained('companies')->onDelete("cascade");
-            $table->text(column: 'trainee_name');
-            $table->string(column: 'trainee_ic');
-            $table->string(column: 'trainee_email');
-            $table->string(column: 'trainee_phoneno');
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->text(column: 'staff_name');
+            $table->string(column: 'staff_ic');
+            $table->string(column: 'staff_email');
+            $table->string(column: 'staff_phoneno');
             $table->timestamps();
         });
     }
