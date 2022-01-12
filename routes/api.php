@@ -14,6 +14,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\StateController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\StaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/billing/{id}', [BillingController::class, 'show']);
     Route::put('/billing/{id}', [BillingController::class, 'update']);
     Route::delete('/billing/{id}', [BillingController::class, 'destroy']);
+    Route::get('/staff', [StaffController::class, 'index']);
+    Route::get('/staff/{id}', [StaffController::class, 'show']);
+    Route::put('/staff/{id}', [StaffController::class, 'update']);
+    Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
     Route::post("/logout",[AuthController::class,'logout']);
 });
 
