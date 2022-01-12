@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
             'train_include' => 'Breakfast and drinks are provided',
             'train_address' => 'Nusajaya JB',
             'train_date_start' => '2021-12-12',
-            'train_date_end' => '2021-12-12',
+            'train_date_end' => '2021-12-15',
             'train_mode' => 'online',
             'train_cohort' => '100'
         ]);
