@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 
     /**
      * The database table used by the model.
@@ -16,4 +15,12 @@ class Company extends Model
      * @var string
      */
     protected $table = 'companies';
+    protected $fillable = [
+        'company_name',
+        'company_register_no',
+        'company_type',
+        'company_branch',
+        'company_details',
+        'company_address',
+    ];
 }

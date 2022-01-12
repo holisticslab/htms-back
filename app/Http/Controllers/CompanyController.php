@@ -30,16 +30,31 @@ class CompanyController extends Controller
         $company_register_no = $request->input('company_register_no');
         $company_type = $request->input('company_type');
         $company_details = $request->input('company_details');
+        $company_address = $request->input('company_address');
 
         Company::create([
             'company_branch' => $company_branch,
             'company_name' => $company_name,
             'company_register_no' => $company_register_no,
             'company_type' => $company_type,
-            'company_details' => $company_details
+            'company_details' => $company_details,
+            'company_address' => $company_address,
         ]);
 
         return Company::paginate(10);
+    }
+
+    public function createAdhoc(Request $request)
+    {
+        $company_name = $request->input('company_name');
+        $company_address = $request->input('company_address');
+
+        $company = Company::create([
+                        'company_name' => $company_name,
+                        'company_address' => $company_address,
+                    ]);
+
+        return $company->id;
     }
 
     /**

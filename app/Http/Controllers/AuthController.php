@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -57,7 +58,6 @@ class AuthController extends Controller {
         } else {
             //company register
             $validatedData = Validator::make($request->all(), [
-                'company_id' => 'required|string',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string',
                 'fullname' => 'required|string',
@@ -68,15 +68,35 @@ class AuthController extends Controller {
                 $errors = $validatedData->errors();
                 return response($errors->first(), 400);
             }
-            
-            User::create([
-                'company_id' => $request['company_id'],
-                'password' => Hash::make($request['password']),
-                'email' => $request['email'],
-                'fullname' => $request['fullname'],
-                'phone_no' => $request['phone_no'],
-                'role_id' => $role_id
-            ]);
+
+            if($request->input('company_id') == 0) {
+                $company_name = $request->input('company_name');
+                $company_address = $request->input('company_address');
+        
+                $company = Company::create([
+                                'company_name' => $company_name,
+                                'company_address' => $company_address,
+                            ]);
+
+                User::create([
+                    'company_id' => $company->id,
+                    'password' => Hash::make($request['password']),
+                    'email' => $request['email'],
+                    'fullname' => $request['fullname'],
+                    'phone_no' => $request['phone_no'],
+                    'role_id' => $role_id
+                ]);
+                
+            } else {
+                User::create([
+                    'company_id' => $request['company_id'],
+                    'password' => Hash::make($request['password']),
+                    'email' => $request['email'],
+                    'fullname' => $request['fullname'],
+                    'phone_no' => $request['phone_no'],
+                    'role_id' => $role_id
+                ]);
+            } 
     
             return response()->json([
                 "message" => "Successfully register"
