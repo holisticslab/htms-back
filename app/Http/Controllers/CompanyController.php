@@ -44,19 +44,6 @@ class CompanyController extends Controller
         return Company::paginate(10);
     }
 
-    public function createAdhoc(Request $request)
-    {
-        $company_name = $request->input('company_name');
-        $company_address = $request->input('company_address');
-
-        $company = Company::create([
-                        'company_name' => $company_name,
-                        'company_address' => $company_address,
-                    ]);
-
-        return $company->id;
-    }
-
     /**
      * Store a newly created resource in storage.
      *
