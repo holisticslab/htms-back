@@ -90,7 +90,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/billing/{id}', [BillingController::class, 'update']);
     Route::delete('/billing/{id}', [BillingController::class, 'destroy']);
     Route::get('/staff', [StaffController::class, 'index']);
-    Route::post('/staff', [InvoiceController::class, 'create']);
+    Route::post('/staff', [StaffController::class, 'create']);
     Route::get('/staff/{id}', [StaffController::class, 'show']);
     Route::put('/staff/{id}', [StaffController::class, 'update']);
     Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
