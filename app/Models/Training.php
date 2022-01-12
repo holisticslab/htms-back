@@ -22,4 +22,8 @@ class Training extends Model
         'train_mode',
         'train_cohort'
     ];
+
+    public function trainess() {
+        return $this->hasMany(Trainee::class, 'training_id');
+    }
 }

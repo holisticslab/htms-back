@@ -30,7 +30,7 @@ class TraineeController extends Controller
         // $training_id = DB::table('training')->where('training_name', $request->input('training_name'))->value('id');
 
         $company_id = $request->input('company_id');
-        $training_participate = $request->input('training_id');
+        $training_id = $request->input('training_id');
         $trainee_name = $request->input('trainee_name');
         $trainee_ic = $request->input('trainee_ic');
         $trainee_email = $request->input('trainee_email');
@@ -44,7 +44,7 @@ class TraineeController extends Controller
 
         Trainee::create([
             'company_id'=> $company_id,
-            'training_participate'=> $training_participate,
+            'training_id'=> $training_id,
             'trainee_name'=> $trainee_name,
             'trainee_ic'=> $trainee_ic,
             'trainee_email'=> $trainee_email,
@@ -73,7 +73,7 @@ class TraineeController extends Controller
 
     public function showName($id)
     {
-        return DB::table('trainees')->where('training_participate', $id)->get();
+        return DB::table('trainees')->where('training_id', $id)->get();
     }
 
 

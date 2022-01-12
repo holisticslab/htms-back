@@ -16,7 +16,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        return Training::paginate(10); 
+        return Training::with('trainess')->paginate(10);
     }
 
     /**

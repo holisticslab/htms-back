@@ -8,6 +8,7 @@ use App\Models\Company;
 use App\Models\Course;
 use App\Models\Billing;
 use App\Models\Training;
+use App\Models\Trainee;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -94,5 +95,25 @@ class DatabaseSeeder extends Seeder
             'train_mode' => 'online',
             'train_cohort' => '100'
         ]);
+
+        Trainee::create([
+            'company_id' => 1,
+            'training_id' => 1,
+            'trainee_name' => 'Athari',
+            'trainee_ic' => '1111111',
+            'trainee_email' => 'athari@gmail.com',
+            'trainee_phoneno' => '11111'
+        ]);
+
+        Trainee::create([
+            'company_id' => 1,
+            'training_id' => 1,
+            'trainee_name' => 'Mira',
+            'trainee_ic' => '222222',
+            'trainee_email' => 'mira@gmail.com',
+            'trainee_phoneno' => '1122111'
+        ]);
+
+        
     }
 }
