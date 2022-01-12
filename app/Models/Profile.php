@@ -17,4 +17,7 @@ class Profile extends Model
      */
     protected $table = 'users';
 
+    public function companies() {
+        return $this->hasOne(Company::class, 'id');
+    }
 }

@@ -14,7 +14,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return Profile::all();
+        return Profile::with('companies')->paginate(10);
+
+        // return Profile::all();
     }
 
     /**
@@ -35,8 +37,9 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return Profile::find($id);
+    {   
+        return Profile::with('companies')->paginate(10);
+        // return Profile::find($id);
     }
 
     /**
