@@ -30,4 +30,8 @@ class Course extends Model
         'course_image',
         'max_student'
     ];
+
+    public function trainings() {
+        return $this->hasMany(Course::class, 'course_id');
+    }
 }

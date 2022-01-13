@@ -26,4 +26,8 @@ class Training extends Model
     public function trainess() {
         return $this->hasMany(Trainee::class, 'training_id');
     }
+
+    public function course() {
+        return $this->belongsTo(Course::class);
+    }
 }
