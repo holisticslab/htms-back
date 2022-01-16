@@ -57,7 +57,7 @@ class TraineeController extends Controller
             'hrdc_status' => $hrdc_status
         ]);
 
-        return Trainee::paginate(10);
+        return DB::table('trainees')->where('training_id', $training_id)->paginate(10);
     }
 
     /**

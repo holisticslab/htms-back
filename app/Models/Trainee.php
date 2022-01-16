@@ -11,6 +11,7 @@ class Trainee extends Model
     protected $table = 'trainees';
     protected $primaryKey = 'id';
     protected $fillable = [
+        'training_id',
         'trainee_name',
         'trainee_ic',
         'trainee_phoneno',

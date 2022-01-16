@@ -26,7 +26,6 @@ class TrainingController extends Controller
      */
     public function create(Request $request)
     {
-        // $course_id = DB::table('courses')->where('course_name', $request->input('course_name'))->value('id');
 
         $course_id = $request->input('course_id');
         $train_name = $request->input('train_name');
@@ -37,22 +36,24 @@ class TrainingController extends Controller
         $train_date_start = $request->input('train_date_start');
         $train_date_end = $request->input('train_date_end');
         $train_mode = $request->input('train_mode');
+        $train_include = $request->input('train_include');
         $train_cohort = $request->input('train_cohort');
 
         Training::create([
             'course_id'=> $course_id,
             'train_name'=> $train_name,
             'train_place'=> $train_place,
-            'train_address'=>$train_address,
-            'train_state'=>$train_state,
-            'train_desc'=>$train_desc,
-            'train_date_start'=>$train_date_start,
+            'train_address'=> $train_address,
+            'train_state'=> $train_state,
+            'train_desc'=> $train_desc,
+            'train_date_start'=> $train_date_start,
             'train_date_end'=> $train_date_end,
             'train_mode'=> $train_mode,
-            'train_cohort' => $train_cohort
+            'train_include'=> $train_include,
+            'train_cohort'=> $train_cohort
         ]);
 
-        return Training::paginate(10); 
+        return Training::with('trainess')->paginate(10); 
     }
 
     /**
@@ -122,7 +123,7 @@ class TrainingController extends Controller
     
         $training = Training::find($id);
         $training->update($request->all());
-        return Training::paginate(10); 
+        return Training::with('trainess')->paginate(10); 
     }
 
     /**
@@ -135,6 +136,6 @@ class TrainingController extends Controller
     {
         $training = Training::find($id);
         $training -> delete();
-        return Training::paginate(10); 
+        return Training::with('trainess')->paginate(10); 
     }
 }

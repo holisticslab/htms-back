@@ -27,18 +27,20 @@ use App\Http\Controllers\PaymentController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+    
+// PUBLIC API
+Route::get('/ping', [HomeController::class, 'ping']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/companyname', [CompanyController::class, 'showName']);
+Route::get('/companyaddress/{id}', [CompanyController::class, 'showAddressbyId']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    //     return $request->user();
-    // });
-    
-    // PUBLIC API
-    Route::get('/ping', [HomeController::class, 'ping']);
-    Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
-    Route::get('/companyname', [CompanyController::class, 'showName']);
-    Route::get('/companyaddress/{id}', [CompanyController::class, 'showAddressbyId']);
-    
+// PAYMENT GATEWAY
+Route::get('/collection', [PaymentController::class, 'getCollection']);
+Route::post('/collection', [PaymentController::class, 'createCollection']);
+Route::post('/bill', [PaymentController::class, 'createBill']);
+Route::get('/checkaccount', [PaymentController::class, 'checkBankAccount']);
+
 // PRIVATE API (TOKEN IS COMPULSORY)
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', [ProfileController::class, 'index']);
@@ -96,7 +98,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/staff/{id}', [StaffController::class, 'show']);
     Route::put('/staff/{id}', [StaffController::class, 'update']);
     Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
-    Route::get('/collection', [PaymentController::class, 'getCollection'])->name('collection');
     Route::post('/payment', [PaymentController::class, 'createBill']);
     // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
     // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);

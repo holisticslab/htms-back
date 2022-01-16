@@ -70,8 +70,8 @@ class DatabaseSeeder extends Seeder
             'max_student' => '10',
             'course_name' => 'PCIHA',
             'course_desc' => 'Kelas bersama mira',
-            'course_fee' => 1000,
-            'course_image' => '',
+            'course_fee' => 200,
+            'course_image' => 'https://training.holisticslab.my/wp-content/uploads/2021/05/PCHE-1024x724.png',
             'course_link' => 'facebook/miraa'
         ]);
 
@@ -114,6 +114,16 @@ class DatabaseSeeder extends Seeder
             'trainee_ic' => '222222',
             'trainee_email' => 'mira@gmail.com',
             'trainee_phoneno' => '1122111'
+        ]);
+
+        State::create([
+            'state_code' => '01',
+            'state_name' => 'Johor',
+        ]);
+
+        State::create([
+            'state_code' => '02',
+            'state_name' => 'Melaka',
         ]);
 
         
