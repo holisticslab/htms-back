@@ -15,6 +15,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,6 +81,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/company/{id}', [CompanyController::class, 'show']);
     Route::post('/company', [CompanyController::class, 'create']);
     Route::put('/company/{id}', [CompanyController::class, 'update']);
+    Route::delete('/company/{id}', [CompanyController::class, 'destroy']);
     Route::get('/invoice', [InvoiceController::class, 'index']);
     Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
     Route::post('/invoice', [InvoiceController::class, 'create']);
@@ -94,6 +96,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/staff/{id}', [StaffController::class, 'show']);
     Route::put('/staff/{id}', [StaffController::class, 'update']);
     Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
+    Route::get('/collection', [PaymentController::class, 'getCollection'])->name('collection');
+    Route::post('/payment', [PaymentController::class, 'createBill']);
+    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
+    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
+    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
     Route::post("/logout",[AuthController::class,'logout']);
 });
 
