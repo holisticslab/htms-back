@@ -27,13 +27,15 @@ class InvoiceController extends Controller
         $invoice_num = $request->input('invoice_num');
         $invoice_date = $request->input('invoice_date');
         $invoice_desc = $request->input('invoice_desc');
-        $training_id = $request->input('training_id');
+        $course_id = $request->input('course_id');
+        $company_id = $request->input('company_id');
 
         Invoice::create([
             'invoice_num'=> $invoice_num,
             'invoice_date'=> $invoice_date,
             'invoice_desc'=> $invoice_desc,
-            'training_id'=> $training_id,
+            'course_id'=> $course_id,
+            'company_id'=> $company_id,
         ]);
 
         return Invoice::paginate(10);
@@ -82,15 +84,14 @@ class InvoiceController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'training_id' => 'required',
-            'invoice_desc' => 'required',
-            'invoice_date' => 'required',
-            'invoice_date' => 'required'
+            'invoice_num'=> $invoice_num,
+            'invoice_date'=> $invoice_date,
+            'invoice_desc'=> $invoice_desc,
         ]);
     
         $invoice = Invoice::find($id);
         $invoice->update($request->all());
-        return Invoice::paginate(10); 
+        return Invoice::paginate(10);
     }
 
     /**
