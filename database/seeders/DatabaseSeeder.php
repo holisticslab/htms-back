@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Billing;
 use App\Models\Training;
 use App\Models\Trainee;
+use App\Models\State;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
