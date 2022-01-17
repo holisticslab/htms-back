@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
             'train_name' => 'Module Introduction',
             'train_place' => 'Webex',
             'train_desc' => 'Testing 123',
-            'train_state' => '01',
+            'train_state' => 'Johor',
             'train_include' => 'Breakfast and drinks are provided',
             'train_address' => 'Nusajaya JB',
             'train_date_start' => '2021-12-12',

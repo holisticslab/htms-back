@@ -9,7 +9,7 @@ class Discount extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'training_id',
+        'course_id',
         'discount_value',
         'discount_code',
         'discount_desc',

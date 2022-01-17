@@ -24,7 +24,7 @@ class DiscountController extends Controller
      */
     public function create(Request $request)
     {
-        $training_id = $request->input('training_id');
+        $course_id = $request->input('course_id');
         $discount_value = $request->input('discount_value');
         $discount_code = $request->input('discount_code');
         $discount_desc = $request->input('discount_desc');
@@ -33,7 +33,7 @@ class DiscountController extends Controller
         $limit_discount = $request->input('limit_discount');
 
         Discount::create([
-            'training_id' => $training_id,
+            'course_id' => $course_id,
             'discount_value' => $discount_value,
             'discount_code' => $discount_code,
             'discount_desc' => $discount_desc,
@@ -88,7 +88,7 @@ class DiscountController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'training_id' => 'required',
+            'course_id' => 'required',
             'discount_value' => 'required',
             'discount_code' => 'required',
             'discount_desc' => 'required',

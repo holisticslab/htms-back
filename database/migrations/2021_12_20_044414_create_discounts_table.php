@@ -15,7 +15,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('training_id');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->integer('discount_value');
             $table->string('discount_code');
             $table->text('discount_desc');
