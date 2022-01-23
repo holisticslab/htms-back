@@ -16,6 +16,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AttachmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,9 +101,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/staff/{id}', [StaffController::class, 'update']);
     Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
     Route::post('/payment', [PaymentController::class, 'createBill']);
-    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
-    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
-    // Route::delete('/staff/{id}', [StaffController::class, 'destroy']);
+    Route::get('/attachment', [AttachmentController::class, 'index']);
+    Route::post('/attachment', [AttachmentController::class, 'create']);
+    Route::get('/attachment/{id}', [AttachmentController::class, 'show']);
+    Route::put('/attachment/{id}', [AttachmentController::class, 'update']);
+    Route::delete('/attachment/{id}', [AttachmentController::class, 'destroy']);
     Route::post("/logout",[AuthController::class,'logout']);
 });
 

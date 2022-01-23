@@ -73,7 +73,6 @@ class DatabaseSeeder extends Seeder
             'course_desc' => 'Kelas bersama mira',
             'course_fee' => 200,
             'course_image' => 'https://training.holisticslab.my/wp-content/uploads/2021/05/PCHE-1024x724.png',
-            'course_link' => 'facebook/miraa'
         ]);
 
         Billing::create([

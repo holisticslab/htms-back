@@ -14,7 +14,7 @@ class AttachmentController extends Controller
      */
     public function index()
     {
-        //
+        return Attachment::paginate(10);
     }
 
     /**
@@ -22,9 +22,29 @@ class AttachmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate([
+            'course_id' => 'required',
+            'attach_desc' => 'required',
+            'attach_type' => 'required',
+            'attach_file' => 'required|file|max:512'
+        ]); 
+        if ($file = $request->file('attach_file')) {
+            $path = $file->store('public/files');
+            $name = $file->getClientOriginalName();
+ 
+            //store your file into directory and db
+            $save = new Attachment();
+            $save->course_id = $request->input('course_id');
+            $save->attach_desc = $request->input('attach_desc');
+            $save->attach_type = $request->input('attach_type');
+            $save->attach_name = $name;
+            $save->attach_file = $path;
+            $save->save();
+              
+            return Attachment::paginate(10);
+        }  
     }
 
     /**
@@ -44,9 +64,9 @@ class AttachmentController extends Controller
      * @param  \App\Models\Attachment  $attachment
      * @return \Illuminate\Http\Response
      */
-    public function show(Attachment $attachment)
+    public function show($id)
     {
-        //
+        return Attachment::find($id);
     }
 
     /**
@@ -67,9 +87,36 @@ class AttachmentController extends Controller
      * @param  \App\Models\Attachment  $attachment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Attachment $attachment)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'course_id' => 'required',
+            'attach_desc' => 'required',
+            'attach_type' => 'required',
+            'attach_file' => 'required|file|max:512'
+        ]);
+
+        if ($file = $request->file('attach_file')) {
+            $attachment = Attachment::find($id);
+            $path = $file->store('public/files');
+            $name = $file->getClientOriginalName();
+            $attachment->course_id = $request->input('course_id');
+            $attachment->attach_desc = $request->input('attach_desc');
+            $attachment->attach_type = $request->input('attach_type');
+            $attachment->attach_name = $name;
+            $attachment->attach_file = $path;
+            $attachment->save();
+            return Attachment::paginate(10);
+        } else {
+            $attachment = Attachment::find($id);
+            $attachment->course_id = $request->input('course_id');
+            $attachment->attach_desc = $request->input('attach_desc');
+            $attachment->attach_type = $request->input('attach_type');
+            $attachment->attach_name = $attachment->attach_name;
+            $attachment->attach_file = $attachment->attach_file;
+            $attachment->save();
+            return Attachment::paginate(10);
+        }
     }
 
     /**
@@ -78,8 +125,10 @@ class AttachmentController extends Controller
      * @param  \App\Models\Attachment  $attachment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Attachment $attachment)
+    public function destroy($id)
     {
-        //
+        $attachment = Attachment::find($id);
+        $attachment -> delete();
+        return Attachment::paginate(10);
     }
 }

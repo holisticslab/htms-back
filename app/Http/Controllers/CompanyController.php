@@ -41,7 +41,7 @@ class CompanyController extends Controller
             'company_address' => $company_address,
         ]);
 
-        return Company::paginate(10);
+        return Company::paginate(5);
     }
 
     /**
