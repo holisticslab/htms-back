@@ -11,13 +11,13 @@ class Trainee extends Model
     protected $table = 'trainees';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'training_id',
+        'cohort_id',
         'trainee_name',
         'trainee_ic',
         'trainee_phoneno',
         'trainee_email',
         'company_id',
-        'training_participate',
+        'cohort_participate',
         'trainee_status',
         'trainer_payment',
         'allergies',
@@ -26,7 +26,7 @@ class Trainee extends Model
         'hrdc_status'
     ];
 
-    public function training() {
-        return $this->belongsTo(Training::class);
+    public function cohort() {
+        return $this->belongsTo(Cohort::class);
     }
 }

@@ -27,10 +27,10 @@ class TraineeController extends Controller
     {
         
         // $company_id = DB::table('companies')->where('company_name', $request->input('company_name'))->value('id');
-        // $training_id = DB::table('training')->where('training_name', $request->input('training_name'))->value('id');
+        // $cohort_id = DB::table('cohort')->where('cohort_name', $request->input('cohort_name'))->value('id');
 
         $company_id = $request->input('company_id');
-        $training_id = $request->input('training_id');
+        $cohort_id = $request->input('cohort_id');
         $trainee_name = $request->input('trainee_name');
         $trainee_ic = $request->input('trainee_ic');
         $trainee_email = $request->input('trainee_email');
@@ -44,7 +44,7 @@ class TraineeController extends Controller
 
         Trainee::create([
             'company_id'=> $company_id,
-            'training_id'=> $training_id,
+            'cohort_id'=> $cohort_id,
             'trainee_name'=> $trainee_name,
             'trainee_ic'=> $trainee_ic,
             'trainee_email'=> $trainee_email,
@@ -57,7 +57,7 @@ class TraineeController extends Controller
             'hrdc_status' => $hrdc_status
         ]);
 
-        return DB::table('trainees')->where('training_id', $training_id)->paginate(10);
+        return DB::table('trainees')->where('cohort_id', $cohort_id)->paginate(10);
     }
 
     /**
@@ -73,7 +73,7 @@ class TraineeController extends Controller
 
     public function showName($id)
     {
-        return DB::table('trainees')->where('training_id', $id)->get();
+        return DB::table('trainees')->where('cohort_id', $id)->get();
     }
 
 

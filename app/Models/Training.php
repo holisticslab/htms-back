@@ -5,26 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Training extends Model
+class Cohort extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'course_id',
-        'train_name',
-        'train_place',
-        'train_desc',
-        'train_state',
-        'train_include',
-        'train_address',
-        'train_date_start',
-        'train_date_end',
-        'train_mode',
-        'train_cohort'
+        'cohort_name',
+        'cohort_place',
+        'cohort_desc',
+        'cohort_state',
+        'cohort_include',
+        'cohort_address',
+        'cohort_date_start',
+        'cohort_date_end',
+        'cohort_mode',
+        'cohort_cohort'
     ];
 
     public function trainess() {
-        return $this->hasMany(Trainee::class, 'training_id');
+        return $this->hasMany(Trainee::class, 'cohort_id');
     }
 
     public function course() {

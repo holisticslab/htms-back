@@ -54,7 +54,7 @@ DROP TABLE IF EXISTS `attendances`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `attendances` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `training_id` bigint(20) unsigned NOT NULL,
+  `cohort_id` bigint(20) unsigned NOT NULL,
   `trainee_id` bigint(20) unsigned NOT NULL,
   `attend_check_in` datetime NOT NULL,
   `attend_check_out` datetime NOT NULL,
@@ -171,7 +171,7 @@ DROP TABLE IF EXISTS `discounts`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `discounts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `training_id` bigint(20) unsigned NOT NULL,
+  `cohort_id` bigint(20) unsigned NOT NULL,
   `discount_value` int(11) NOT NULL,
   `discount_desc` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `limit_discount` int(11) NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_08_19_000000_create_failed_jobs_table',1),(3,'2019_12_14_000001_create_personal_access_tokens_table',1),(4,'2021_11_23_120510_create_courses_table',1),(5,'2021_11_23_154732_create_posts_table',1),(6,'2021_12_14_072850_create_attachments_table',1),(7,'2021_12_14_075501_create_certificates_table',1),(8,'2021_12_14_075751_create_trainings_table',1),(9,'2021_12_20_021125_create_companies_table',1),(10,'2021_12_20_021823_create_roles_table',1),(11,'2021_12_20_025922_create_trainees_table',1),(12,'2021_12_20_044414_create_discounts_table',1),(13,'2021_12_20_044442_create_attendances_table',1),(14,'2021_12_21_000000_create_users_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_100000_create_password_resets_table',1),(2,'2019_08_19_000000_create_failed_jobs_table',1),(3,'2019_12_14_000001_create_personal_access_tokens_table',1),(4,'2021_11_23_120510_create_courses_table',1),(5,'2021_11_23_154732_create_posts_table',1),(6,'2021_12_14_072850_create_attachments_table',1),(7,'2021_12_14_075501_create_certificates_table',1),(8,'2021_12_14_075751_create_cohorts_table',1),(9,'2021_12_20_021125_create_companies_table',1),(10,'2021_12_20_021823_create_roles_table',1),(11,'2021_12_20_025922_create_trainees_table',1),(12,'2021_12_20_044414_create_discounts_table',1),(13,'2021_12_20_044442_create_attendances_table',1),(14,'2021_12_21_000000_create_users_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,7 +362,7 @@ CREATE TABLE `trainees` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `company_id` bigint(20) unsigned NOT NULL,
   `trainee_name` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `training_participate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `cohort_participate` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `trainee_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `trainer_payment` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `allergies` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -387,36 +387,35 @@ LOCK TABLES `trainees` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `trainings`
+-- Table structure for table `cohorts`
 --
 
-DROP TABLE IF EXISTS `trainings`;
+DROP TABLE IF EXISTS `cohorts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `trainings` (
+CREATE TABLE `cohorts` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `course_id` bigint(20) unsigned NOT NULL,
-  `train_place` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `train_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `train_mode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `train_date_start` date NOT NULL,
-  `train_date_end` date NOT NULL,
-  `train_cohort` int(11) NOT NULL,
+  `cohort_place` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cohort_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cohort_mode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cohort_date_start` date NOT NULL,
+  `cohort_date_end` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `trainings_course_id_foreign` (`course_id`),
-  CONSTRAINT `trainings_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE
+  KEY `cohorts_course_id_foreign` (`course_id`),
+  CONSTRAINT `cohorts_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trainings`
+-- Dumping data for table `cohorts`
 --
 
-LOCK TABLES `trainings` WRITE;
-/*!40000 ALTER TABLE `trainings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trainings` ENABLE KEYS */;
+LOCK TABLES `cohorts` WRITE;
+/*!40000 ALTER TABLE `cohorts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cohorts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
