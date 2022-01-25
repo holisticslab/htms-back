@@ -2,11 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\CohortController;
 use App\Http\Controllers\TraineeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\CompanyController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\EmailController;
+use App\Mail\ProformaMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +39,16 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/companyname', [CompanyController::class, 'showName']);
 Route::get('/companyaddress/{id}', [CompanyController::class, 'showAddressbyId']);
 Route::get('/companyname', [CompanyController::class, 'showName']);
+
+// MAILING
+Route::get('/email', function () {
+    Mail::to('irsyadkamil96@gmail.com')->send(new ProformaMail());
+});
+Route::get('/mail', [EmailController::class, 'index']);
+Route::get('/mailtest', function(){
+    return view('email.proforma');
+});
+
 
 // PAYMENT GATEWAY
 Route::get('/collection', [PaymentController::class, 'getCollection']);
@@ -57,16 +70,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('/course/{id}', [CourseController::class, 'update']);
     Route::post('/course', [CourseController::class, 'create']);
     Route::delete('/course/{id}', [CourseController::class, 'destroy']);
-    Route::get('/training', [TrainingController::class, 'index']);
-    Route::get('/training/{id}', [TrainingController::class, 'show']);
-    Route::get('/trainingalldate', [TrainingController::class, 'showDateTrainingName']);
-    Route::get('/trainingbycourse/{id}', [TrainingController::class, 'showTrainingByCourseID']);
-    Route::get('/trainingbyyear/{year}', [TrainingController::class, 'showTrainingByYear']);
-    Route::get('/totaltrainee/{id}', [TrainingController::class, 'getTotalTrainee']);
-    Route::post('/training', [TrainingController::class, 'create']);
-    Route::get('/trainingname', [TrainingController::class, 'showName']);
-    Route::put('/training/{id}', [TrainingController::class, 'update']);
-    Route::delete('/training/{id}', [TrainingController::class, 'destroy']);
+    Route::get('/cohort', [CohortController::class, 'index']);
+    Route::get('/cohort/{id}', [CohortController::class, 'show']);
+    Route::get('/cohortalldate', [CohortController::class, 'showDateCohortName']);
+    Route::get('/cohortbycourse/{id}', [CohortController::class, 'showCohortByCourseID']);
+    Route::get('/cohortbyyear/{year}', [CohortController::class, 'showCohortByYear']);
+    Route::get('/totaltrainee/{id}', [CohortController::class, 'getTotalTrainee']);
+    Route::post('/cohort', [CohortController::class, 'create']);
+    Route::get('/cohortname', [CohortController::class, 'showName']);
+    Route::put('/cohort/{id}', [CohortController::class, 'update']);
+    Route::delete('/cohort/{id}', [CohortController::class, 'destroy']);
     Route::get('/trainee', [TraineeController::class, 'index']);
     Route::get('/trainee/{id}', [TraineeController::class, 'showName']);
     Route::post('/trainee', [TraineeController::class, 'create']);

@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\Company;
 use App\Models\Course;
 use App\Models\Billing;
-use App\Models\Training;
+use App\Models\Cohort;
 use App\Models\Trainee;
 use App\Models\State;
 use Illuminate\Database\Seeder;
@@ -84,23 +84,22 @@ class DatabaseSeeder extends Seeder
             'biller_notes' => 'Im a happy boy'
         ]);
 
-        Training::create([
+        Cohort::create([
             'course_id' => 1,
-            'train_name' => 'Module Introduction',
-            'train_place' => 'Webex',
-            'train_desc' => 'Testing 123',
-            'train_state' => 'Johor',
-            'train_include' => 'Breakfast and drinks are provided',
-            'train_address' => 'Nusajaya JB',
-            'train_date_start' => '2021-12-12',
-            'train_date_end' => '2021-12-15',
-            'train_mode' => 'online',
-            'train_cohort' => '100'
+            'cohort_name' => 'Module Introduction',
+            'cohort_place' => 'Webex',
+            'cohort_desc' => 'Testing 123',
+            'cohort_state' => 'Johor',
+            'cohort_include' => 'Breakfast and drinks are provided',
+            'cohort_address' => 'Nusajaya JB',
+            'cohort_date_start' => '2021-12-12',
+            'cohort_date_end' => '2021-12-15',
+            'cohort_mode' => 'online',
         ]);
 
         Trainee::create([
             'company_id' => 1,
-            'training_id' => 1,
+            'cohort_id' => 1,
             'trainee_name' => 'Athari',
             'trainee_ic' => '1111111',
             'trainee_email' => 'athari@gmail.com',
@@ -109,7 +108,7 @@ class DatabaseSeeder extends Seeder
 
         Trainee::create([
             'company_id' => 1,
-            'training_id' => 1,
+            'cohort_id' => 1,
             'trainee_name' => 'Mira',
             'trainee_ic' => '222222',
             'trainee_email' => 'mira@gmail.com',
