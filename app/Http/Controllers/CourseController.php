@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class CourseController extends Controller
 {
     public function index() {
-        return Course::with('trainings')->paginate(10);
+        return Course::with('cohorts')->paginate(10);
     }
 
     public function show($id)
