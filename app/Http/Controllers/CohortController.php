@@ -16,7 +16,7 @@ class CohortController extends Controller
      */
     public function index()
     {
-        return Cohort::with('trainees')->paginate(10);
+        return Cohort::with('cohorts')->paginate(10);
     }
 
     /**
@@ -53,7 +53,7 @@ class CohortController extends Controller
             'cohort_cohort'=> $cohort_cohort
         ]);
 
-        return Cohort::with('trainees')->paginate(10); 
+        return Cohort::with('cohorts')->paginate(10);
     }
 
     /**
@@ -123,7 +123,7 @@ class CohortController extends Controller
     
         $cohort = Cohort::find($id);
         $cohort->update($request->all());
-        return Cohort::with('trainees')->paginate(10); 
+        return Cohort::with('cohorts')->paginate(10);
     }
 
     /**
@@ -136,6 +136,6 @@ class CohortController extends Controller
     {
         $cohort = Cohort::find($id);
         $cohort -> delete();
-        return Cohort::with('trainees')->paginate(10); 
+        return Cohort::with('cohorts')->paginate(10);
     }
 }

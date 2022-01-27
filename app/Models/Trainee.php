@@ -26,7 +26,7 @@ class Trainee extends Model
         'hrdc_status'
     ];
 
-    public function cohort() {
-        return $this->belongsTo(Cohort::class);
-    }
+    // public function cohort() {
+    //     return $this->belongsTo(Cohort::class);
+    // }
 }

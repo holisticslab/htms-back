@@ -10,6 +10,7 @@ use App\Models\Billing;
 use App\Models\Cohort;
 use App\Models\Trainee;
 use App\Models\State;
+use App\Models\Invoice;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -125,6 +126,12 @@ class DatabaseSeeder extends Seeder
             'state_name' => 'Melaka',
         ]);
 
-        
+        Invoice::create([
+            'course_id' => '1',
+            'company_id' => '1',
+            'invoice_num' => '12345',
+            'invoice_date' => '12/12/22',
+            'invoice_desc' => 'Testing invoice'
+        ]);
     }
 }

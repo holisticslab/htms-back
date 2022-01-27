@@ -30,7 +30,7 @@ class Course extends Model
         'max_student'
     ];
 
-    public function cohort() {
+    public function cohorts() {
         return $this->hasMany(Cohort::class, 'course_id');
     }
 }

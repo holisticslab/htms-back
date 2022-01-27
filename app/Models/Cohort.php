@@ -19,11 +19,10 @@ class Cohort extends Model
         'cohort_address',
         'cohort_date_start',
         'cohort_date_end',
-        'cohort_mode',
-        'cohort_cohort'
+        'cohort_mode'
     ];
 
-    public function trainess() {
+    public function cohorts() {
         return $this->hasMany(Trainee::class, 'cohort_id');
     }
 
