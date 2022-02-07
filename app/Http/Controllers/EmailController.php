@@ -17,17 +17,13 @@ class EmailController extends Controller
 
         try {
             Mail::to('irsyadkamil96@gmail.com')->send(new AttachmentMail());
-
-            // Mail::send('email.attachment', $data, function($message)use($data, $pdf) {
-            //     $message->to($data["email"], $data["email"])
-            //             ->subject($data["title"])
-            //             ->attachData($pdf->output(), "proforma.pdf");
-            // });
         } catch (err) {
             dd($err);
         }
   
-        dd('Mail sent successfully');
+        return response()->json([
+            "message" => "Successfully register"
+        ]);
     }
 
     public function email() {

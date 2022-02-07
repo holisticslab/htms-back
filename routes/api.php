@@ -35,7 +35,9 @@ use App\Mail\ProformaMail;
 // PUBLIC API
 Route::get('/ping', [HomeController::class, 'ping']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/forgotpassword', [AuthController::class, 'forgotPassword']);
+Route::post('/resetpassword', [AuthController::class, 'reset']);
 Route::get('/companyname', [CompanyController::class, 'showName']);
 Route::get('/companyaddress/{id}', [CompanyController::class, 'showAddressbyId']);
 Route::get('/companyname', [CompanyController::class, 'showName']);

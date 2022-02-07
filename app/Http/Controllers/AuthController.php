@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Company;
+use App\Http\Controllers\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -26,14 +30,17 @@ class AuthController extends Controller {
                 'ic' => 'required|string|max:12|unique:users',
                 'password' => 'required|string|max:12',
                 'phone_no' => 'required|string|min:8',
-                'company_id' => 'required|string'
+                'company_id' => 'required|string',
+                'position' => 'required|string'
             ],
             [   
                 'fullname.required' => 'Please Input Full Name',
+                'email.email' => 'Email must be in format email',
                 'ic.required' => 'Please Input Your Identification Number (for local) or Passport (for international)',
                 'company_name.required' => 'Please Input Company Name',
                 'fullname.max' => 'Full Name less than 255 characters',
-                'email.email' => 'Email must be in format email'
+                'phone_no' => 'Please Input Phone Number',
+                'position' => 'Please Input Your Position'
             ]);
     
             if ($validatedData->fails()) {
@@ -48,6 +55,7 @@ class AuthController extends Controller {
             'password' => Hash::make($request['password']),
             'phone_no' => $request['phone_no'],
             'company_id' => $request['company_id'],
+            'position' => $request['position'],
             'role_id' => $role_id
         ]);
 
@@ -62,6 +70,8 @@ class AuthController extends Controller {
                 'password' => 'required|string',
                 'fullname' => 'required|string',
                 'phone_no' => 'required|string',
+                'company_id' => 'required|string',
+                'company_name' => 'required|string'
             ]);
             
             if ($validatedData->fails()) {
@@ -104,8 +114,8 @@ class AuthController extends Controller {
             
         }
         
-        // // dd($request->all()); mcm console.log
-        // // php artisan make:model <nama model> -m -c --api
+        // dd($request->all()); mcm console.log
+        // php artisan make:model <nama model> -m -c --api
     
     }
 
@@ -160,23 +170,57 @@ class AuthController extends Controller {
         return response($response,201);
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $post = Auth::where('id', $id)->update([
-    //         'name' => $request->name,
-    //         'body' => $request->body,
-    //     ]);
+    public function forgotPassword(Request $request) {
 
-    //     return response()->json([
-    //         'data' => $post
-    //     ]);
-    // }
+        $validatedData = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255'
+        ]);
+        
+        if ($validatedData->fails()) {
+            $errors = $validatedData->errors();
+            return response($errors->first(), 400);
+        }
 
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+        
+        if($status == Password::RESET_LINK_SENT) {
+            return [
+                'status' => __($status)
+            ];
+        };
 
-    // protected function authenticated(Request $request, $user) 
-    // {
-    //     return redirect()->intended();
-    // }
+        throw ValidationException::withMessages([
+            'email' => [trans($status)]
+        ]);
+    }
+
+    public function reset(Request $request) {
+        $validatedData = Validator::make($request->all(), [
+            'email' => 'required|string|email|max:255',
+            'token' => 'required',
+            'password' => 'required'
+        ]);
+        
+        if ($validatedData->fails()) {
+            $errors = $validatedData->errors();
+            return response($errors->first(), 400);
+        }
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'confirmed_password', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password'=> Hash::make($request->password)
+                ])->save();
+            }
+        );
+
+        return response([
+            'message' => __($status)
+        ], 201);
+    }
 
     public function perform()
     {
