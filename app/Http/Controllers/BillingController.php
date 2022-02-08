@@ -14,7 +14,7 @@ class BillingController extends Controller
      */
     public function index()
     {
-        return Billing::paginate(10);
+        return Billing::find(1);
     }
 
     /**
@@ -81,7 +81,7 @@ class BillingController extends Controller
     
         $billing = Billing::find($id);
         $billing->update($request->all());
-        return Billing::paginate(10); 
+        return Billing::find(1); 
     }
 
     /**

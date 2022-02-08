@@ -94,6 +94,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/state/{id}', [StateController::class, 'destroy']);
     Route::get('/discount', [DiscountController::class, 'index']);
     Route::post('/discount', [DiscountController::class, 'create']);
+    Route::get('/discount/{id}', [DiscountController::class, 'show']);
     Route::put('/discount/{id}', [DiscountController::class, 'update']);
     Route::delete('/discount/{id}', [DiscountController::class, 'destroy']);
     Route::get('/company', [CompanyController::class, 'index']);

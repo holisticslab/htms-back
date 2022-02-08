@@ -18,9 +18,8 @@ class CreateBillingsTable extends Migration
             $table->string(column: "biller_name");
             $table->string(column: "biller_address");
             $table->string(column: "biller_phone_no");
-            $table->string(column: "biller_email");
-            $table->string(column: "biller_subject");
-            $table->string(column: "biller_notes");
+            $table->string(column: "biller_website");
+            $table->string(column: "biller_ssm");
             $table->timestamps();
         });
     }

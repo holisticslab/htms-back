@@ -12,8 +12,7 @@ class Billing extends Model
         'biller_name',
         'biller_address',
         'biller_phone_no',
-        'biller_email',
-        'biller_subject',
-        'biller_notes'
+        'biller_website',
+        'biller_ssm'
     ];
 }

@@ -80,9 +80,8 @@ class DatabaseSeeder extends Seeder
             'biller_name' => 'Holis Tic Lab',
             'biller_address' => 'Med 7',
             'biller_phone_no' => '0111111',
-            'biller_email' => '@holisticslab.my',
-            'biller_subject' => 'Testing',
-            'biller_notes' => 'Im a happy boy'
+            'biller_website' => '@holisticslab.my',
+            'biller_ssm' => 'Testing'
         ]);
 
         Cohort::create([

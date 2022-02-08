@@ -64,7 +64,7 @@ class DiscountController extends Controller
      */
     public function show($id)
     {
-        //
+        return Discount::find($id);
     }
 
     /**
