@@ -9,11 +9,22 @@ class Invoice extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'course_id',
+        'cohort_id',
         'company_id',
         'invoice_num',
         'invoice_date',
-        'invoice_desc'
+        'invoice_due',
+        'invoice_amount'
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function cohort()
+    {
+        return $this->belongsTo(Cohort::class);
+    }
 
 }

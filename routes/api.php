@@ -74,6 +74,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/course/{id}', [CourseController::class, 'destroy']);
     Route::get('/cohort', [CohortController::class, 'index']);
     Route::get('/cohort/{id}', [CohortController::class, 'show']);
+    Route::get('/cohortname', [CohortController::class, 'showName']);
     Route::get('/cohortalldate', [CohortController::class, 'showDateCohortName']);
     Route::get('/cohortbycourse/{id}', [CohortController::class, 'showCohortByCourseID']);
     Route::get('/cohortbyyear/{year}', [CohortController::class, 'showCohortByYear']);

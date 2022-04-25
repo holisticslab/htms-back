@@ -106,7 +106,7 @@ class CompanyController extends Controller
     
         $company = Company::find($id);
         $company->update($request->all());
-        return Company::paginate(10); 
+        return Company::paginate(10);
     }
 
     /**

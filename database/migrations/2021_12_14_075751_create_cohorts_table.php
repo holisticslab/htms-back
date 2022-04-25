@@ -24,8 +24,8 @@ class CreateCohortsTable extends Migration
             $table->text(column: 'cohort_desc')->nullable();
             $table->text(column: 'cohort_include')->nullable();
             $table->string(column: 'total_trainee')->nullable();
-            $table->date(column: 'cohort_date_start');
-            $table->date(column: 'cohort_date_end');
+            $table->text(column: 'cohort_date_start');
+            $table->text(column: 'cohort_date_end');
             $table->timestamps();
         });
     }

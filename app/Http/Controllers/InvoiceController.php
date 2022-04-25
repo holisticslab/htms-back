@@ -14,7 +14,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return Invoice::paginate(10);
+        return Invoice::with('company', 'cohort')->paginate(10);
     }
 
     /**
@@ -26,19 +26,21 @@ class InvoiceController extends Controller
     {
         $invoice_num = $request->input('invoice_num');
         $invoice_date = $request->input('invoice_date');
-        $invoice_desc = $request->input('invoice_desc');
-        $course_id = $request->input('course_id');
+        $invoice_due = $request->input('invoice_due');
+        $invoice_amount = $request->input('invoice_amount');
+        $cohort_id = $request->input('cohort_id');
         $company_id = $request->input('company_id');
 
         Invoice::create([
             'invoice_num'=> $invoice_num,
             'invoice_date'=> $invoice_date,
-            'invoice_desc'=> $invoice_desc,
-            'course_id'=> $course_id,
+            'invoice_due'=> $invoice_due,
+            'invoice_amount'=> $invoice_amount,
+            'cohort_id'=> $cohort_id,
             'company_id'=> $company_id,
         ]);
 
-        return Invoice::paginate(10);
+        return Invoice::with('company', 'cohort')->paginate(10);
     }
 
     /**
@@ -86,7 +88,8 @@ class InvoiceController extends Controller
         $request->validate([
             'invoice_num'=> $invoice_num,
             'invoice_date'=> $invoice_date,
-            'invoice_desc'=> $invoice_desc,
+            'invoice_due'=> $invoice_due,
+            'invoice_amount'=> $invoice_amount,
         ]);
     
         $invoice = Invoice::find($id);

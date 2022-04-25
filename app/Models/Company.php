@@ -23,4 +23,9 @@ class Company extends Model
         'company_details',
         'company_address',
     ];
+
+    // public function invoice()
+    // {
+    //     return $this->hasMany(Invoice::class);
+    // }
 }

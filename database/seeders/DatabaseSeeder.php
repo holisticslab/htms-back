@@ -126,11 +126,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Invoice::create([
-            'course_id' => '1',
+            'cohort_id' => '1',
             'company_id' => '1',
             'invoice_num' => '12345',
             'invoice_date' => '12/12/22',
-            'invoice_desc' => 'Testing invoice'
+            'invoice_due' => '12/12/22',
+            'invoice_amount' => '1000',
         ]);
     }
 }

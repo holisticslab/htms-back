@@ -74,9 +74,8 @@ class BillingController extends Controller
             'biller_name' => 'required',
             'biller_address' => 'required',
             'biller_phone_no' => 'required',
-            'biller_email' => 'required',
-            'biller_subject' => 'required',
-            'biller_notes' => 'required',
+            'biller_website' => 'required',
+            'biller_ssm' => 'required',
         ]);
     
         $billing = Billing::find($id);
